@@ -1,4 +1,4 @@
-from hurricanes_db.app import db
+from irinauxproject2.app import db
 
 # db.drop_all()
 db.create_all()
