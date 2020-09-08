@@ -38,8 +38,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "s
 # Remove tracking modifications
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-
+# db = SQLAlchemy(app)
+db = "postgres://uswvzvnkzgbljg:ca41e4657a61d730dc70c695a25ef576c77db410ba89a5d1350a8b335884afef@ec2-54-204-26-236.compute-1.amazonaws.com:5432/d5rru02batgti3"
 Classes = create_classes(db)
 
 # create route that renders index.html template
