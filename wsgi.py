@@ -1,3 +1,3 @@
-from project2-heroku import create_app
+from project2_heroku import create_app
 
 app = create_app()
