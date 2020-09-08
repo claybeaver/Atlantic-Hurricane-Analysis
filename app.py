@@ -51,7 +51,7 @@ def jsondata():
     # rows = cursor.fetchall()
     # cursor.execute("select name, hurricane_id, year, latitude_decimal, longitude_decimal, max_wind, air_pressure, time from master")
     # rows = cursor.fetchall()
-    row = db.session.query(master.name, master.hurricane_id, master.year, master.latitude_decimal, master.longitude_decimal, master.max_wind, master.air_pressure)
+    rows = db.session.query(master.name, master.hurricane_id, master.year, master.latitude_decimal, master.longitude_decimal, master.max_wind, master.air_pressure)
     # print(rows)
     # q = ("select row_to_json(master) from master")
     # mySQL = db.executesql(q)
