@@ -57,7 +57,7 @@ function geoJsonMap(sample) {
     
     // Adding a tile layer (the background map image) to our map
     // We use the addTo method to add objects to our map
-    var mapboxAccessToken = "pk.eyJ1IjoiaXJpbmFocGRhIiwiYSI6ImNrZTk5ZWl6czB0ZGIyeHJucnBidXF4NG0ifQ.5yKGPM6y8H8d_d_Gj8KAVw";
+    var mapboxAccessToken = API_KEY;
 
     var map = L.map('geoJsonMap').setView([37.8, -96], 4);
 
