@@ -39,7 +39,6 @@ function buildGraph(sample) {
     };
     Plotly.newPlot("plot", data, layout);
   })
-  // console.log("--- Graph built ---");
 };
 
 buildGraph();
@@ -48,42 +47,11 @@ function geoJsonMap(sample) {
   const url = "/jsondata";
   d3.json(url).then(function(data){
     console.log(data);
+    const myMap = d3.select("#geoJsonMap");
+    
   })
 };
 
 geoJsonMap();
 
-// function buildPlot() {
-//   /* data route */
-//   const url = "/jsondata";
-//   d3.json(url).then(function(response) {
 
-//     console.log(response);
-
-//     const data = response;
-
-//     const layout = {
-//       scope: "usa",
-//       title: "Costliest Hurricanes in Atlantic",
-//       showlegend: false,
-//       height: 600,
-//             // width: 980,
-//       geo: {
-//         scope: "usa",
-//         projection: {
-//           type: "albers usa"
-//         },
-//         showland: true,
-//         landcolor: "rgb(217, 217, 217)",
-//         subunitwidth: 1,
-//         countrywidth: 1,
-//         subunitcolor: "rgb(255,255,255)",
-//         countrycolor: "rgb(255,255,255)"
-//       }
-//     };
-
-//     Plotly.newPlot("plot", data, layout);
-//   });
-// }
-
-// buildPlot();
