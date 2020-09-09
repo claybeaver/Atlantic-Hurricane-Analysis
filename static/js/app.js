@@ -65,7 +65,8 @@ function geoJsonMap(sample) {
         id: 'mapbox/light-v9',
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
         tileSize: 512,
-        zoomOffset: -1
+        zoomOffset: -1,
+        API_KEY
     }).addTo(map);
 
     L.geoJson(statesData).addTo(map);
