@@ -23,22 +23,9 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 #### test irina
-# con = psycopg2.connect(database="hurricanes_db", user="postgres", password=password, host="127.0.0.1", port="5432")
-host = "ec2-54-172-173-58.compute-1.amazonaws.com"
-db = "d5r20gklffimtp"
-
-
-# con = psycopg2.connect(database="d5r20gklffimtp", user="ksbyesziginjim", password="604e43369bb88e70d12bfdff3c853e100e75e5049e4633240a1a6a3f4c01931a", host="ec2-54-172-173-58.compute-1.amazonaws.com", port="5432")
-# cursor = con.cursor()
-# Connect to the local database
-# connection_string = "ksbyesziginjim @localhost:5432/hurricanes_db'
 engine = create_engine("postgres://ksbyesziginjim:604e43369bb88e70d12bfdff3c853e100e75e5049e4633240a1a6a3f4c01931a@ec2-54-172-173-58.compute-1.amazonaws.com:5432/d5r20gklffimtp")
 
-# db = "postgres://ksbyesziginjim:604e43369bb88e70d12bfdff3c853e100e75e5049e4633240a1a6a3f4c01931a@ec2-54-172-173-58.compute-1.amazonaws.com:5432/d5r20gklffimtp"
-##### end test irina
-
 from flask_sqlalchemy import SQLAlchemy
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', "postgresql://localhost:5000/hurricanes_db")
 
 # Remove tracking modifications
@@ -51,15 +38,7 @@ Classes = create_classes(db)
 # create route that renders index.html template
 @app.route("/jsondata")
 def jsondata():
-    # cursor.execute("select row_to_json(master) from master")
-    # rows = cursor.fetchall()
     rows = engine.execute("select name, hurricane_id, year, latitude_decimal, longitude_decimal, max_wind, air_pressure, time from master")
-    # rows = cursor.fetchall()
-    # print(rows)
-    # q = ("select row_to_json(master) from master")
-    # mySQL = db.executesql(q)
-    # return json.dumps(mySQL)
-    # # return 
     objects_list = []
     for row in rows:
         d = collections.OrderedDict()
@@ -76,22 +55,12 @@ def jsondata():
     j = json.dumps(objects_list)
     objects_file = 'master_objects.js'
     f = open(objects_file,'w')
-    # print(f, j)
-    # return render_template("jsondata.html", data=j)    
     return j
 
 # create route that renders index.html template
 @app.route("/maxwinds")
 def maxwinds():
-    # cursor.execute("select row_to_json(master) from master")
-    # rows = cursor.fetchall()
     rows = engine.execute("select name, max_wind, name_year from maxwinds")
-    # rows = cursor.fetchall()
-    # print(rows)
-    # q = ("select row_to_json(master) from master")
-    # mySQL = db.executesql(q)
-    # return json.dumps(mySQL)
-    # # return 
     objects_list = []
     for row in rows:
         d = collections.OrderedDict()
@@ -103,34 +72,21 @@ def maxwinds():
     j = json.dumps(objects_list)
     objects_file = 'maxwinds.js'
     f = open(objects_file,'w')
-    # print(f, j)
-    # return render_template("jsondata.html", data=j)    
     return j
 
 # create route that renders index.html template
 @app.route("/cost_by_state")
 def cost_by_state():
-    # cursor.execute("select row_to_json(master) from master")
-    # rows = cursor.fetchall()
     rows = engine.execute("select state, total_damage from cost_state")
-    # rows = cursor.fetchall()
-    # print(rows)
-    # q = ("select row_to_json(master) from master")
-    # mySQL = db.executesql(q)
-    # return json.dumps(mySQL)
-    # # return 
     objects_list = []
     for row in rows:
         d = collections.OrderedDict()
         d['name'] = row[0]
         d['total_damage'] = row[1]
         objects_list.append(d)
-
     j = json.dumps(objects_list)
     objects_file = 'cost_by_state.js'
     f = open(objects_file,'w')
-    # print(f, j)
-    # return render_template("jsondata.html", data=j)    
     return j
 
 # create route that renders index.html template
@@ -142,7 +98,6 @@ def home():
 @app.route("/data")
 def data():
     rows = engine.execute("select * from master")
-    # results = cursor.fetchall()
     return render_template("data.html", data=rows)
     
 
