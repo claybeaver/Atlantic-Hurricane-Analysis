@@ -7,7 +7,7 @@ from flask import (
     jsonify,
     request,
     redirect)
-from secret import password, username
+# from secret import password, username
 import pandas as pd
 from sqlalchemy import create_engine
 import psycopg2
