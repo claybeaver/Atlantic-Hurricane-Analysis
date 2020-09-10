@@ -6,7 +6,8 @@ from flask import (
     render_template,
     jsonify,
     request,
-    redirect)
+    redirect,
+    url_for)
 # from secret import password, username
 import pandas as pd
 from sqlalchemy import create_engine
@@ -14,6 +15,7 @@ import psycopg2
 import json
 import collections
 import sys
+
 #################################################
 # Flask Setup
 #################################################
@@ -124,18 +126,17 @@ def home():
 # Query the database and send the jsonified results
 @app.route("/send", methods=["GET", "POST"])
 def send():
-    if request.method == "POST":
-        name = request.form["petName"]
-        lat = request.form["petLat"]
-        lon = request.form["petLon"]
+    # if request.method == "POST":
+    #     name = request.form["petName"]
+    #     lat = request.form["petLat"]
+    #     lon = request.form["petLon"]
 
-        pet = Pet(name=name, lat=lat, lon=lon)
-        db.session.add(pet)
-        db.session.commit()
-        return redirect("/", code=302)
+    #     pet = Pet(name=name, lat=lat, lon=lon)
+    #     db.session.add(pet)
+    #     db.session.commit()
+    #     return redirect("/", code=302)
 
     return render_template("geomap.html")
-
 
 # create route that renders index.html template
 @app.route("/data")
