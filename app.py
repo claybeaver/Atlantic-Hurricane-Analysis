@@ -7,7 +7,7 @@ from flask import (
     jsonify,
     request,
     redirect)
-from secret import password, username
+# from secret import password, username
 import pandas as pd
 from sqlalchemy import create_engine
 import psycopg2
@@ -46,14 +46,14 @@ Classes = create_classes(db)
 @app.route("/costwind")
 def costwind():
     # rows = engine.execute("select hurricane_id, damage_usd, norm_damage_usd, date, name, time, status, max_wind, air_pressure, latitude_decimal, longitude_decimal, year, name_year from cost_wind")
-    rows = engine.execute("select hurricane_id, norm_damage_usd, name_year from cost_wind")
+    rows = engine.execute("select hurricane_id, norm_damage_usd, name_year, max_wind from cost_wind")
     objects_list = []
     for row in rows:
         d = collections.OrderedDict()
         d['hurricane_id'] = row[0]
         d['norm_damage_usd'] = str(row[1])
         d['name_year'] = row[2]
-        # d['date'] = row[3]
+        d['max_wind'] = row[3]
         # d['name'] = row[4]
         # d['time'] = row[5]
         # d['max_wind'] = row[6]
