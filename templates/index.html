@@ -15,41 +15,51 @@
 
 <body>
     <div class="container">
-        <!-- <div class="jumbotron" style="text-align: center"> -->
-        <div>
-            <h1>Atlantic Hurricanes</h1>
+        <div class="jumbotron" style="text-align: center">
+            <div>
+                <h1>Atlantic Hurricanes</h1>
+                <p style="text-align:center">Group 5 - Project 2</p>
+            </div>
         </div>
-        
         <div class="row">
-            <!-- <div class="col-md-12"> -->
+            <div class="col-md-12">
         </div>
         
         <div>
-            <div id="geoJsonMap"></div>
+            <div class="col-md-12">
+                <div id="geoJsonMap"></div>
+            </div>
         </div>
 
-        <div id="plot"></div>
-            <p>Find out more</p>
+        <div id="plot">
+            <div class="col-md-12">
+                <p>Cost by state</p>
+            </div>
+        </div>
+           
         
 
         <div class="row">
             <div class="col-md-12">
-                <h2>Costliest hurricanes in the Atlantic by state</h2>
+                <h4>Costliest hurricanes in the Atlantic by state</h4>
                 <div id="map"></div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <h2><a href="/geomap">Link to Clay's page</a></h2>
+                <h4><a href="/geomap">Link to Clay's page</a></h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4><a href="/data">View master data</a></h4>
             </div>
         </div>
 
         <div>
-            <!-- <a href="geomap.html">Link to geomap webpage
-                <img src="USEastCoastHurricanes.JPG">
-            </a> -->
-        </div>
+       
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
@@ -57,14 +67,14 @@
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     <script src="{{ url_for('static', filename='js/config.js') }}"></script>
     <!-- CSS only -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-<!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-<!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" /> -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
 </body>

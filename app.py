@@ -139,7 +139,7 @@ def geomap():
     return render_template("geomap.html")
 
 # create route that renders index.html template
-@app.route("/data")
+@app.route("/data", methods=["GET", "POST"])
 def data():
     rows = engine.execute("select * from master")
     return render_template("data.html", data=rows)
