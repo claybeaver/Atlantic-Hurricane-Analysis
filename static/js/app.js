@@ -129,7 +129,7 @@ mapHurricane();
 function buildGraph(sample) {
   const url = "/maxwinds";
   d3.json(url).then(function (data) {
-    // console.log(data);
+    console.log(data);
     const names = data.map(entry => entry.name_year);
     const maxwind = data.map(entry => entry.max_wind);
     // console.log(names);

@@ -121,6 +121,20 @@ def cost_by_state():
 def home():
     return render_template("index.html")
   
+# Query the database and send the jsonified results
+@app.route("/send", methods=["GET", "POST"])
+def send():
+    if request.method == "POST":
+        name = request.form["petName"]
+        lat = request.form["petLat"]
+        lon = request.form["petLon"]
+
+        pet = Pet(name=name, lat=lat, lon=lon)
+        db.session.add(pet)
+        db.session.commit()
+        return redirect("/", code=302)
+
+    return render_template("geomap.html")
 
 
 # create route that renders index.html template
@@ -128,6 +142,8 @@ def home():
 def data():
     rows = engine.execute("select * from master")
     return render_template("data.html", data=rows)
+
+
 
 
 if __name__ == "__main__":
