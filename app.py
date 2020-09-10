@@ -124,8 +124,8 @@ def home():
     return render_template("index.html")
   
 # Query the database and send the jsonified results
-@app.route("/send", methods=["GET", "POST"])
-def send():
+@app.route("/geomap", methods=["GET", "POST"])
+def geomap():
     # if request.method == "POST":
     #     name = request.form["petName"]
     #     lat = request.form["petLat"]
