@@ -11,6 +11,7 @@
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 </head>
 
 <body>
@@ -40,23 +41,41 @@
         
 
         <div class="row">
-            <div class="col-md-12">
-                <h4>Costliest hurricanes in the Atlantic by state</h4>
-                <div id="map"></div>
+            <div class="container-fluid">
+                <div class="col-md-12">
+                    <h4>Costliest hurricanes in the Atlantic by state</h4>
+                    <div id="map"></div>
+                </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h4><a href="/geomap">Link to Clay's page</a></h4>
+        
+        <div>
+            <div class="card mt-4" style="width: 18rem;">
+                <div class="card-block">
+                    </div><img class="card-img-top" src="https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/taw/GEOCOLOR/1800x1080.jpg" alt="Master data"><a href="/geomap"></a>
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="/geomap">Link to Clay's page</a></h5>
+                        <p class="card-text">Checkout geomapping of the hurricane paths</p>
+                        <a href="/geomap" class="btn btn-primary">View</a>
+                    </div>
+                </div>
             </div>
         </div>
+        <br>
+        <br>
+        <div>
+            <!-- <h5 class="card-title"><a href="/data">View master data</a></h5> -->
+            <a href="/data" class="btn btn-secondary">View master data</a>
+        </div>
+          
 
-        <div class="row">
+        
+        <!-- <div class="row">
             <div class="col-md-12">
                 <h4><a href="/data">View master data</a></h4>
+                <div id="masterdata"></div>
             </div>
-        </div>
+        </div> -->
 
         <div>
        

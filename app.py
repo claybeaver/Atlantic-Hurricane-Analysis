@@ -15,6 +15,8 @@ import psycopg2
 import json
 import collections
 import sys
+# for files uploading
+from werkzeug.utils import secure_filename
 
 #################################################
 # Flask Setup
