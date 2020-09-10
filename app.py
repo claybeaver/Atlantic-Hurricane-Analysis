@@ -54,21 +54,13 @@ def costwind():
         d['norm_damage_usd'] = str(row[1])
         d['name_year'] = row[2]
         d['max_wind'] = row[3]
-        # d['name'] = row[4]
-        # d['time'] = row[5]
-        # d['max_wind'] = row[6]
-        # d['air_pressure'] = row[7]
-        # d['latitude_decimal'] = row[8]
-        # d['longitude_decimal'] = row[9]
-        # d['year'] = row[10]
-        # d['name_year'] = row[11]
         objects_list.append(d)
 
     j = json.dumps(objects_list)
     objects_file = 'master_objects.js'
     f = open(objects_file,'w')
     return j
-
+    # return render_template("costwind.html", data=objects_list)
 
 # create route that renders index.html template
 @app.route("/jsondata")
