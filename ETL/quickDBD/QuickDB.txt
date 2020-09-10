@@ -57,3 +57,19 @@ cost_state
 -
 state VARCHAR(10)
 total_damage INT
+
+cost_wind
+-
+hurricane_id INT
+damage_usd numeric
+norm_damage_usd numeric
+date INT
+name VARCHAR(255)
+time INT
+status VARCHAR(25)
+max_wind INT
+air_pressure INT
+latitude_decimal numeric
+longitude_decimal numeric
+year INT
+name_year VARCHAR(255)

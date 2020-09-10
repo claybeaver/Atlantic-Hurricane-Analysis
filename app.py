@@ -95,10 +95,27 @@ def home():
     return render_template("index.html")
   
 # create route that renders index.html template
+@app.route("/cost_by_hurricanes")
+def cost_by_hurricanes():
+    rows = engine.execute("select name_year, norm_damage_usd,max_wind from cost_wind")
+    objects_list = []
+    for row in rows:
+        d = collections.OrderedDict()
+        d['name_year'] = row[0]
+        d['norm_damage_usd'] = row[1]
+        d['max_wind'] = row[2]
+        objects_list.append(d)
+    j = json.dumps(objects_list)
+    objects_file = 'cost_wind.js'
+    f = open(objects_file,'w')
+    return j
+
+# create route that renders index.html template
 @app.route("/data")
 def data():
     rows = engine.execute("select * from master")
     return render_template("data.html", data=rows)
+
 
 if __name__ == "__main__":
     app.run()

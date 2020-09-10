@@ -218,3 +218,38 @@ mapHurricane();
 // };
 
 // //geoJsonMap();
+
+function costbyhurr(sample) {
+
+  const url = "/cost_by_hurricanes";
+  d3.json(url).then(function (data) {
+    console.log(data);
+
+    // let latlong = [];
+    // let names_years = ['Able_1950'];
+    // let name_year;
+    // let object = {};
+
+    // data.forEach((entry, index) => {
+    //   name_year = `${entry.name}_${entry.year}`;
+    //   if (names_years.indexOf(name_year) > -1) {
+    //     var point = []
+    //     point.push(parseInt(entry.latitude))
+    //     point.push(parseInt(entry.longitude))
+    //     object[name_year]
+    //     latlong.push([point])
+    //     object[name_year] = latlong;
+    //   }
+    //   //console.log(latlong);
+    //   else {
+    //     latlong = []
+    //     new_name_year = `${entry.name}_${entry.year}`;
+    //     names_years.push(new_name_year);
+    //   }
+    // })
+
+    // console.log(object);
+  }
+  )}
+
+  costbyhurr();
