@@ -45,8 +45,29 @@ Classes = create_classes(db)
 
 @app.route("/costwind")
 def costwind():
-    rows = engine.execute("select * from cost_wind")
-    return render_template("costwind.html", data=rows)
+    # rows = engine.execute("select hurricane_id, damage_usd, norm_damage_usd, date, name, time, status, max_wind, air_pressure, latitude_decimal, longitude_decimal, year, name_year from cost_wind")
+    rows = engine.execute("select hurricane_id, norm_damage_usd, name_year from cost_wind")
+    objects_list = []
+    for row in rows:
+        d = collections.OrderedDict()
+        d['hurricane_id'] = row[0]
+        d['norm_damage_usd'] = str(row[1])
+        d['name_year'] = row[2]
+        # d['date'] = row[3]
+        # d['name'] = row[4]
+        # d['time'] = row[5]
+        # d['max_wind'] = row[6]
+        # d['air_pressure'] = row[7]
+        # d['latitude_decimal'] = row[8]
+        # d['longitude_decimal'] = row[9]
+        # d['year'] = row[10]
+        # d['name_year'] = row[11]
+        objects_list.append(d)
+
+    j = json.dumps(objects_list)
+    objects_file = 'master_objects.js'
+    f = open(objects_file,'w')
+    return j
 
 
 # create route that renders index.html template
