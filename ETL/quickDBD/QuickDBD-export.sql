@@ -53,7 +53,8 @@ CREATE TABLE "master" (
 CREATE TABLE "maxwinds" (
     "name" VARCHAR(255)   NOT NULL,
     "max_wind" INT   NOT NULL,
-    "name_year" VARCHAR(255)   NOT NULL
+    "name_year" VARCHAR(255)   NOT NULL,
+	"year" INT NOT NULL
 );
 
 CREATE TABLE "cost_state" (
