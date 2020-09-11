@@ -1,84 +1,130 @@
+console.log('TEST LOG FOR GEOMAP.JS')
 console.log(API_KEY)
 
-function buildGeoMap() {
+function mapHurricane(sample) {
+
   const url = "/jsondata";
   d3.json(url).then(function (data) {
-    console.log(data);
+    // console.log(data);
 
-  // Create an initial map object
-  // Set the longitude, latitude, and the starting zoom level
-  const myMap = L.map("map", {
-    center:[29, -90],
-    zoom: 10
-  })
-  
-  // Add a tile layer (the background map image) to our map
-  // Use the addTo method to add objects to our map
-  L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-    tileSize: 512,
-    maxZoom: 18,
-    zoomOffset: -1,
-    id: "mapbox/streets-v11",
-    accessToken: API_KEY
-  }).addTo(myMap);
+    let latlong = [];
+    let names_years = ['Able_1950'];
+    let name_year;
+    let object = {};
 
+    data.forEach((entry, index) => {
+      name_year = `${entry.name}_${entry.year}`;
+      if (names_years.indexOf(name_year) > -1) {
+        var point = []
+        point.push(parseInt(entry.latitude))
+        point.push(parseInt(entry.longitude))
+        object[name_year]
+        latlong.push([point])
+        object[name_year] = latlong;
+      }
+      //console.log(latlong);
+      else {
+        latlong = []
+        new_name_year = `${entry.name}_${entry.year}`;
+        names_years.push(new_name_year);
+      }
+    })
 
+    console.log(object);
 
-  // L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-  //   attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-  //   tileSize: 512,
-  //   maxZoom: 18,
-  //   zoomOffset: -1,
-  //   id: "mapbox/streets-v11",
-  //   accessToken: API_KEY
-  // }).addTo(map);
+    // // ******** OLD CODE FOR CONCAT LAT/LON *********
+    // var coordinates = []
+    // for (var i = 0; i < latitudes.length; i++) {
+    //   coordinates[i] = [latitudes[i], longitudes[i]];
+    // }
+    // // **********************************************
+    // console.log(latitudes);
+    // console.log(longitudes);
+    // console.log(coordinates);
+    // console.log(hurricaneName);
+    // console.log(names_years);
 
-  // // Create a new marker
-  // L.marker([45.52, -122.67]).addTo(map);
+    // Create an initial map object
+    const myMap = L.map("map", {
+      center: [25.07, -70.1],
+      zoom: 4
+    })
+    // .setView([25.07, -70.1], 4);
 
-  // // Create a circle and pass in some initial options
-  // L.circle([45.52, -122.69], {
-  //   color: "green",
-  //   fillColor: "green",
-  //   fillOpacity: 0.75,
-  //   radius: 500
-  // }).addTo(map);
+    // Add a tile layer to map
+    L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+      attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+      tileSize: 512,
+      maxZoom: 18,
+      zoomOffset: -1,
+      id: "mapbox/streets-v11",
+      accessToken: API_KEY
+    }).addTo(myMap);
 
-  // // Create a Polygon and pass in some initial options
-  // L.polygon([
-  //   [45.54, -122.68],
-  //   [45.55, -122.68],
-  //   [45.55, -122.66]
-  // ], {
-  //   color: "yellow",
-  //   fillColor: "yellow",
-  //   fillOpacity: 0.75
-  // }).addTo(map);
+    // // *************** EXAMPLE MAPPING ABLE_1950 *****************
+    const ableLine = [
+      [17.02, -55.08],
+      [17.12, -56.05],
+      [18.03, -57.07],
+      [19, -58.1],
+      [20, -60],
+      [20.12, -61.02],
+      [21.05, -62.03],
+      [22, -63.03],
+      [22.12, -63.13],
+      [23.02, -64.1],
+      [23.07, -65.07],
+      [23.15, -66],
+      [24.07, -66.03],
+      [24.13, -66.08],
+      [25.03, -66.13],
+      [25.08, -67.08],
+      [25.12, -68.02],
+      [25.12, -68.12],
+      [25.08, -69.05],
+      [25.07, -69.13],
+      [25.07, -70.1],
+      [25.07, -71.08],
+      [25.08, -72.1],
+      [25.15, -73.05],
+      [26.12, -73.15],
+      [27.05, -74.07],
+      [27.15, -74.15],
+      [28.07, -75.05],
+      [29.02, -75.08],
+      [29.15, -75.08],
+      [30.12, -75.08],
+      [31.12, -75.08],
+      [32.13, -75.03],
+      [34.07, -74.05],
+      [36, -72.12],
+      [37.1, -71],
+      [39.05, -69.07],
+      [41.03, -67.05],
+      [43.05, -65],
+      [44.1, -63.12],
+      [45.08, -62.1],
+      [47.15, -59.13],
+      [50, -56.13],
+      [52, -53.13],
+      [53.1, -50.12],
+      [54.12, -47.12],
+      [55.05, -44.13],
+      [55.05, -41.13],
+      [54.08, -37.12],
+      [53.08, -33.12],
+      [52.08, -30.05]
+    ];
+    // **********************************************************
 
-  // // Coordinates for each point to be used in the polyline
-  // const line = [
-  //   [45.51, -122.68],
-  //   [45.50, -122.60],
-  //   [45.48, -122.70],
-  //   [45.54, -122.75]
-  // ];
+    // Create a polyline using the line coordinates and pass in some initial options
+    L.polyline(ableLine, {
+      color: "red"
+    }).addTo(myMap);
 
-  // // Create a polyline using the line coordinates and pass in some initial options
-  // L.polyline(line, {
-  //   color: "red"
-  // }).addTo(map);
-
-  // // Create a rectangle and pass in some initial options
-  // L.rectangle([
-  //   [45.55, -122.64],
-  //   [45.54, -122.61]
-  // ], {
-  //   color: "black",
-  //   weight: 3,
-  //   stroke: true
-  // }).addTo(map);
   })
 }
 
-buildGeoMap();
+mapHurricane();
+
+
