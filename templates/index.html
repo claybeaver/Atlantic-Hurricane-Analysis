@@ -13,10 +13,15 @@
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body>
-    
+
+
+
+
     <div class="container">
         <div class="jumbotron" style="text-align: center">
             <div>
@@ -24,21 +29,24 @@
                 <p style="text-align:center">Group 5 - Project 2</p>
             </div>
         </div>
-
-         <!-- <div class="col-md-6">
-            <p>Sample plot</p>
-            <div id="plot"></div>
-        </div> -->
-       
-       
-        <div class="col-md-12">
-            <h4>Cost by state<h4p>
-            <div id="cost" style="height: 400px;"></div>
+        <div class = "row">
+            <div class = "col-md-6">
+                <canvas id="myChart" width="100" height="100"></canvas>
+            </div>
+            <div class = "col-md-6">
+                <h4>Geomap</h4>
+                <div id="geomap" style="height: 500px;"></div>
+            </div>
         </div>
+        <div class = "row">
+            <div class = "col-md-12">
+                <div id="myDiv"></div>
+            </div>
+        </div>
+    </div>
 
-        <div class="col-md-12">
-            <h4>Costliest hurricanes in the Atlantic by state</h4>
-            <div id="map" style="height: 400px;"></div>
+        <!-- <div class="row">
+            <div class="col-md-12">
         </div>
         
         <div>
@@ -46,30 +54,43 @@
                 <div id="geoJsonMap"></div>
             </div>
         </div>
+
+        <div id="plot">
+            <div class="col-md-12">
+                <p>Cost by state</p>
+                <div id="myDiv"></div>
+            </div>
+        </div>
+      
+        <div class="row">
+            <div class="container-fluid">
+                <div class="col-md-12">
+                    <h4>Costliest hurricanes in the Atlantic by state</h4>
+                    <div id="map" style="height: 250px;"></div>
+                </div>
+            </div>
+        </div>
         
         <div>
             <div class="card mt-4" style="width: 18rem;">
                 <div class="card-block">
                     <img class="card-img-top" src="https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/taw/GEOCOLOR/1800x1080.jpg" alt="Master data"><a href="/geomap"></a>
-                    <!-- <img src="USEastCoastHurricanes.JPG"> -->
+                    <img src="USEastCoastHurricanes.JPG">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title"><a href="/geomap">Link to Clay's page</a></h5>
                     <p class="card-text">Checkout geomapping of the hurricane paths</p>
-                    <!-- <a href="/jsondata" class="btn btn-primary">View</a> -->
+                    <a href="/jsondata" class="btn btn-primary">View</a>
                 </div>
                 </div>
-
-                <div>
-                    <!-- <h5 class="card-title"><a href="/data">View master data</a></h5> -->
-                    <a href="/data" class="btn btn-secondary">View master data</a>
-                </div>
-
             </div>
         </div>
         <br>
         <br>
-        
+        <div>
+             <h5 class="card-title"><a href="/data">View master data</a></h5> -->
+            <!-- <a href="/data" class="btn btn-secondary">View master data</a>
+        </div> -->
           
 
         
@@ -80,9 +101,9 @@
             </div>
         </div> -->
 
-        <div>
+        <!-- <div> -->
        
-    </div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -95,11 +116,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></link>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" /> -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-   crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 </body>
 
 </html>
