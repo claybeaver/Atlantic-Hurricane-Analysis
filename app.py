@@ -12,11 +12,9 @@ from flask import (
 import pandas as pd
 from sqlalchemy import create_engine
 import psycopg2
-import json
 import collections
-import sys
+import json
 # for files uploading
-from werkzeug.utils import secure_filename
 
 #################################################
 # Flask Setup
@@ -61,8 +59,6 @@ def costwind():
         objects_list.append(d)
 
     j = json.dumps(objects_list)
-    objects_file = 'master_objects.js'
-    f = open(objects_file,'w')
     return j
     # return render_template("costwind.html", data=objects_list)
 
@@ -99,7 +95,6 @@ def maxwinds():
         d['max_wind'] = row[1]
         d['name_year'] = row[2]
         objects_list.append(d)
-
     j = json.dumps(objects_list)
     objects_file = 'maxwinds.js'
     f = open(objects_file,'w')
@@ -116,14 +111,14 @@ def cost_by_state():
         d['total_damage'] = row[1]
         objects_list.append(d)
     j = json.dumps(objects_list)
-    objects_file = 'cost_by_state.js'
-    f = open(objects_file,'w')
     return j
 
 # create route that renders index.html template
 @app.route("/")
-def home():
-    return render_template("index.html")
+def main_page():
+    cost = cost_by_state()
+    print(cost)
+    return render_template("index.html", costbystate=cost)
   
 # Query the database and send the jsonified results
 @app.route("/geomap", methods=["GET", "POST"])
@@ -157,4 +152,4 @@ def data():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(threaded=True)

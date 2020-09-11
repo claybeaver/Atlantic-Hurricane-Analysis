@@ -118,11 +118,7 @@ function mapHurricane(sample) {
   })
 }
 
-// mapHurricane();
-
-
-
-
+mapHurricane();
 
 
 
@@ -172,58 +168,78 @@ function buildGraph(sample) {
   })
 };
 
-// buildGraph();
+buildGraph();
+
+function geoJsonMap() {
+  const url = "/cost_by_state";
+  // d3.json(url2).then(function(data){
+  // console.log(data);
+  // const myMap = L.map("geoJsonMap", {
+  //   center: [29.75, -95.36],
+  //   zoom: 4
+  // });
+  d3.json(url).then(function (data) {
+  //  console.log(data);
+
+    // Adding a tile layer (the background map image) to our map
+    // We use the addTo method to add objects to our map
+    // var mapboxAccessToken = API_KEY;
+
+    // var map = L.map('geoJsonMap').setView([37.8, -96], 4);
+
+    const map = L.map("geoJsonMap", {
+      center: [29.75, -95.36],
+      zoom: 13
+    });
+
+    L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+      attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+      maxZoom: 5,
+      tileSize: 512,
+      id: 'mapbox/streets-v11',
+      zoomOffset: -1,
+      accessToken: API_KEY
+    }).addTo(map);
+  })
+};
+
+// CHART I
+const neilChart = async() => {
+  const res = await (await fetch("/costwind")).json();
+  console.log(res);
+  // here below this line is the code for Neil
+}
+neilChart();
+
+// CHART II
+const clayChart = async() => {
+  const res = await (await fetch("/jsondata")).json();
+  console.log(res);
+  // here below this line is the code for Neil
+}
+clayChart();
+
+// CHART III
+
+const amyChart = async() => {
+  const res = await (await fetch("/cost_by_state")).json();
+  console.log(res);
+  // here below this line is the code for Neil
+}
+amyChart();
 
 
+// const dataNeils = fetchedData("/jsondata");
+// console.log(dataNeils);
 
+// const geoDataClay = fetch("/jsondata").then(response => response.json()).then(geodata => console.log(geodata));
 
-
-
-
-
-
-
-
-// function geoJsonMap(sample) {
-//   const url = "/cost_by_state";
-//   // d3.json(url2).then(function(data){
-//   // console.log(data);
-//   // const myMap = L.map("geoJsonMap", {
-//   //   center: [29.75, -95.36],
-//   //   zoom: 4
-//   // });
-//   d3.json(url).then(function (data) {
-//   //  console.log(data);
-
-//     // Adding a tile layer (the background map image) to our map
-//     // We use the addTo method to add objects to our map
-//     // var mapboxAccessToken = API_KEY;
-
-//     // var map = L.map('geoJsonMap').setView([37.8, -96], 4);
-
-//     const map = L.map("geoJsonMap", {
-//       center: [29.75, -95.36],
-//       zoom: 13
-//     });
-
-//     L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-//       attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-//       maxZoom: 5,
-//       tileSize: 512,
-//       id: 'mapbox/streets-v11',
-//       zoomOffset: -1,
-//       accessToken: API_KEY
-//     }).addTo(map);
-//   })
-// };
-
-// //geoJsonMap();
 
 function costwind(sample) {
 
   const url = "/costwind";
   d3.json(url).then(function (data) {
-    console.log(data);
+    // console.log(data);
 
     // let latlong = [];
     // let names_years = ['Able_1950'];
@@ -254,10 +270,10 @@ function costwind(sample) {
 
   costwind();
 
-  function buildLeaflet() {
+function buildLeaflet() {
       // The first parameter are the coordinates of the center of the map
       // The second parameter is the zoom level
-      var map = L.map('map').setView([29.712, -95.006], 8);
+      var map2 = L.map('map').setView([29.712, -95.006], 8);
       
       // {s}, {z}, {x} and {y} are placeholders for map tiles
       // {x} and {y} are the x/y of where you are on the map
@@ -266,56 +282,30 @@ function costwind(sample) {
         var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
       });
-      
       // Now add the layer onto the map
-      map.addLayer(layer);
+      map2.addLayer(layer);
   }
 
-  // buildLeaflet();
+  buildLeaflet();
 
-  function buildCostMap() {
-    Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv', function(err, rows){
-      function unpack(rows, key) {
-          return rows.map(function(row) { return row[key]; });
-      }
+function buildCostMap() {
+  
+  const map1 = L.map("myDiv", {
+    center: [25.07, -70.1],
+    zoom: 4
+  })
 
-      var data = [{
-          type: 'choropleth',
-          locationmode: 'USA-states',
-          locations: unpack(rows, 'code'),
-          z: unpack(rows, 'total exports'),
-          text: unpack(rows, 'state'),
-          zmin: 0,
-          zmax: 17000,
-          colorscale: [
-              [0, 'rgb(242,240,247)'], [0.2, 'rgb(218,218,235)'],
-              [0.4, 'rgb(188,189,220)'], [0.6, 'rgb(158,154,200)'],
-              [0.8, 'rgb(117,107,177)'], [1, 'rgb(84,39,143)']
-          ],
-          colorbar: {
-              title: 'Millions USD',
-              thickness: 0.2
-          },
-          marker: {
-              line:{
-                  color: 'rgb(255,255,255)',
-                  width: 2
-              }
-          }
-      }];
+  var mapboxAccessToken = API_KEY;
+  
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+      id: 'mapbox/light-v9',
+      tileSize: 512,
+      zoomOffset: -1
+  }).addTo(map1);
 
+  L.geoJson(statesData).addTo(map1);
 
-      var layout = {
-          title: '2011 US Agriculture Exports by State',
-          geo:{
-              scope: 'usa',
-              showlakes: true,
-              lakecolor: 'rgb(255,255,255)'
-          }
-      };
+}
 
-      Plotly.newPlot("myDiv", data, layout, {showLink: false});
-  });
-  }
-
-  buildCostMap();
+buildCostMap();
+console.log(data);
