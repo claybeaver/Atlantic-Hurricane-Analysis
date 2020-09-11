@@ -120,93 +120,91 @@ function mapHurricane(sample) {
 
 mapHurricane();
 
+// function buildGraph(sample) {
+//   const url = "/maxwinds";
+//   d3.json(url).then(function (data) {
+//     console.log(data);
+//     const names = data.map(entry => entry.name_year);
+//     const maxwind = data.map(entry => entry.max_wind);
+//     // console.log(names);
+//     // console.log(maxwind);    
 
+//     const title = `Maximum winds`;
+//     const trace = {
+//       x: maxwind,
+//       y: names,
+//       type: 'bar',
+//       orientation: 'h',
+//       title: title,
+//       text: maxwind,
+//     };
+//     var data = [trace];
+//     var layout = {
+//       title: {
+//         text: title,
+//         font: {
+//           size: 12
+//         },
+//       },
+//       font: {
+//         size: 8,
+//       },
+//       xaxis: {
+//         title: "Maximum winds"
+//       },
+//       // yaxis: maxwind,
+//       width: 400,
+//       margin: {
+//         l: 100,
+//         r: 10,
+//         b: 100,
+//         t: 100,
+//         pad: 10
+//       }
+//     };
+//     Plotly.newPlot("plot", data, layout);
+//   })
+// };
 
-function buildGraph(sample) {
-  const url = "/maxwinds";
-  d3.json(url).then(function (data) {
-    console.log(data);
-    const names = data.map(entry => entry.name_year);
-    const maxwind = data.map(entry => entry.max_wind);
-    // console.log(names);
-    // console.log(maxwind);    
+// buildGraph();
 
-    const title = `Maximum winds`;
-    const trace = {
-      x: maxwind,
-      y: names,
-      type: 'bar',
-      orientation: 'h',
-      title: title,
-      text: maxwind,
-    };
-    var data = [trace];
-    var layout = {
-      title: {
-        text: title,
-        font: {
-          size: 12
-        },
-      },
-      font: {
-        size: 8,
-      },
-      xaxis: {
-        title: "Maximum winds"
-      },
-      // yaxis: maxwind,
-      width: 400,
-      margin: {
-        l: 100,
-        r: 10,
-        b: 100,
-        t: 100,
-        pad: 10
-      }
-    };
-    Plotly.newPlot("plot", data, layout);
-  })
-};
+// function geoJsonMap() {
+//   const url = "/cost_by_state";
+//   // d3.json(url2).then(function(data){
+//   // console.log(data);
+//   // const myMap = L.map("geoJsonMap", {
+//   //   center: [29.75, -95.36],
+//   //   zoom: 4
+//   // });
+//   d3.json(url).then(function (data) {
+//   //  console.log(data);
 
-buildGraph();
+//     // Adding a tile layer (the background map image) to our map
+//     // We use the addTo method to add objects to our map
+//     // var mapboxAccessToken = API_KEY;
 
-function geoJsonMap() {
-  const url = "/cost_by_state";
-  // d3.json(url2).then(function(data){
-  // console.log(data);
-  // const myMap = L.map("geoJsonMap", {
-  //   center: [29.75, -95.36],
-  //   zoom: 4
-  // });
-  d3.json(url).then(function (data) {
-  //  console.log(data);
+//     // var map = L.map('geoJsonMap').setView([37.8, -96], 4);
 
-    // Adding a tile layer (the background map image) to our map
-    // We use the addTo method to add objects to our map
-    // var mapboxAccessToken = API_KEY;
+//     const map = L.map("geoJsonMap", {
+//       center: [29.75, -95.36],
+//       zoom: 13
+//     });
 
-    // var map = L.map('geoJsonMap').setView([37.8, -96], 4);
-
-    const map = L.map("geoJsonMap", {
-      center: [29.75, -95.36],
-      zoom: 13
-    });
-
-    L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-      attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-      maxZoom: 5,
-      tileSize: 512,
-      id: 'mapbox/streets-v11',
-      zoomOffset: -1,
-      accessToken: API_KEY
-    }).addTo(map);
-  })
-};
+//     L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+//       attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+//       maxZoom: 5,
+//       tileSize: 512,
+//       id: 'mapbox/streets-v11',
+//       zoomOffset: -1,
+//       accessToken: API_KEY
+//     }).addTo(map);
+//   })
+// };
 
 // CHART I
 const neilChart = async() => {
   const res = await (await fetch("/costwind")).json();
-  console.log(res);
+  // console.log(res);
   // here below this line is the code for Neil
 }
 neilChart();
@@ -214,33 +212,62 @@ neilChart();
 // CHART II
 const clayChart = async() => {
   const res = await (await fetch("/jsondata")).json();
-  console.log(res);
+  // console.log(res);
   // here below this line is the code for Neil
 }
 clayChart();
 
-// CHART III
+
+
+// CHART III - Amy's Chart
 
 const amyChart = async() => {
   const res = await (await fetch("/cost_by_state")).json();
   console.log(res);
 
-  const map1 = L.map("myDiv", {
-    center: [25.07, -70.1],
-    zoom: 4
-  })
+  Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv', function(err, rows){
+    function unpack(rows, key) {
+        return rows.map(function(row) { return row[key]; });
+    }
 
-  var mapboxAccessToken = API_KEY;
-  
-  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
-      id: 'mapbox/light-v9',
-      tileSize: 512,
-      zoomOffset: -1
-  }).addTo(map1);
+    var data = [{
+        type: 'choropleth',
+        locationmode: 'USA-states',
+        locations: unpack(rows, 'code'),
+        z: unpack(rows, 'total exports'),
+        text: unpack(rows, 'state'),
+        zmin: 0,
+        zmax: 17000,
+        colorscale: [
+            [0, 'rgb(242,240,247)'], [0.2, 'rgb(218,218,235)'],
+            [0.4, 'rgb(188,189,220)'], [0.6, 'rgb(158,154,200)'],
+            [0.8, 'rgb(117,107,177)'], [1, 'rgb(84,39,143)']
+        ],
+        colorbar: {
+            title: 'Millions USD',
+            thickness: 0.2
+        },
+        marker: {
+            line:{
+                color: 'rgb(255,255,255)',
+                width: 2
+            }
+        }
+    }];
 
-  L.geoJson(res).addTo(map1);
 
-  // here below this line is the code for Neil
+    var layout = {
+        title: '2011 US Agriculture Exports by State',
+        geo:{
+            scope: 'usa',
+            showlakes: true,
+            lakecolor: 'rgb(255,255,255)'
+        }
+    };
+
+    Plotly.newPlot("cost", data, layout, {showLink: false});
+});
+
 }
 amyChart();
 

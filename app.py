@@ -117,7 +117,7 @@ def cost_by_state():
 @app.route("/")
 def main_page():
     cost = cost_by_state()
-    print(cost)
+    # print(cost)
     return render_template("index.html", costbystate=cost)
   
 # Query the database and send the jsonified results

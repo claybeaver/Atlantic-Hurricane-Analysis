@@ -24,8 +24,8 @@ html {
 }
 
 /* set map, body, and html to 100% of the screen size */
-#myDiv,
+#cost,
 body,
 html {
-  height: 40%;
+  height: 100%;
 }
