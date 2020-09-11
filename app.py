@@ -80,8 +80,6 @@ def jsondata():
         objects_list.append(d)
 
     j = json.dumps(objects_list)
-    objects_file = 'master_objects.js'
-    f = open(objects_file,'w')
     return j
 
 # create route that renders index.html template
