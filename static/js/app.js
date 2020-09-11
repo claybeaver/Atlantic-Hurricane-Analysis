@@ -79,26 +79,26 @@ let hurdata = {};
 let windspeed = [];
 
 data.forEach((entry, index) => {
-  name_year = `${entry.name}_${entry.year}`;
-  if (names_years.indexOf(name_year) > -1) {
-    var point = []
-    hurdata = {}
-    point.push(parseInt(entry.latitude))
-    point.push(parseInt(entry.longitude))
-    windspeed.push(parseInt(entry.max_wind))
-    hurdata['Coordinates'] = latlong;
-    hurdata['Wind Speed'] = windspeed;
-    latlong.push(point)
-    object[name_year] = hurdata;
-  }
+   name_year = `${entry.name}_${entry.year}`;
+   if (names_years.indexOf(name_year) > -1) {
+      var point = []
+      hurdata = {}
+      point.push(parseInt(entry.latitude))
+      point.push(parseInt(entry.longitude))
+      windspeed.push(parseInt(entry.max_wind))
+      hurdata['Coordinates'] = latlong;
+      hurdata['Wind Speed'] = windspeed;
+      latlong.push(point)
+      object[name_year] = hurdata;
+   }
   //console.log(latlong);
-  else {
-    latlong = []
-    windspeed = []
-    hurdata = {}
-    new_name_year = `${entry.name}_${entry.year}`;
-    names_years.push(new_name_year);
-  }
+   else {
+      latlong = []
+      windspeed = []
+      hurdata = {}
+      new_name_year = `${entry.name}_${entry.year}`;
+      names_years.push(new_name_year);
+   }
 })
 
 
