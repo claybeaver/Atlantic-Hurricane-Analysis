@@ -105,12 +105,19 @@ data.forEach((entry, index) => {
     // Create an initial map object
     const myMap = L.map("geomap").setView([25.07, -70.1], 4);
 
-    // Add a tile layer to map
-    const dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+   //  // Add a tile layer to map
+   //  const dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+   //    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+   //    id: "dark-v10",
+   //    accessToken: API_KEY
+   //  }).addTo(myMap);
+
+   const light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
       attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-      id: "dark-v10",
+      maxZoom: 18,
+      id: "light-v10",
       accessToken: API_KEY
-    }).addTo(myMap);
+      }).addTo(myMap);
 
     // // *************** EXAMPLE MAPPING ABLE_1950 *****************
     var hurricane = object.Able_1950
@@ -164,7 +171,7 @@ var chartData = [{
   zmax: 100000,
   colorscale: [
       [0, 'rgb(154, 200, 158)'], [0.2, 'rgb(188,189,220)'],
-      [0.4, 'rgb(158,154,200)'], [0.6, 'rgb(118,82,165)'],
+      [0.4, 'rgb(158,154,200)'], [0.6, 'rgb(84,39,143)'],
       [0.8, 'rgb(84,39,143)'], [1, 'rgb(234,60,83)']
       // [0.8, 'rgb(118,82,165)'], [1, 'rgb(84,39,143)']
   ],
