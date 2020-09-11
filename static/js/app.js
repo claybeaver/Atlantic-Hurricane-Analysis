@@ -224,72 +224,7 @@ clayChart();
 const amyChart = async() => {
   const res = await (await fetch("/cost_by_state")).json();
   console.log(res);
-  // here below this line is the code for Neil
-}
-amyChart();
 
-
-// const dataNeils = fetchedData("/jsondata");
-// console.log(dataNeils);
-
-// const geoDataClay = fetch("/jsondata").then(response => response.json()).then(geodata => console.log(geodata));
-
-
-function costwind(sample) {
-
-  const url = "/costwind";
-  d3.json(url).then(function (data) {
-    // console.log(data);
-
-    // let latlong = [];
-    // let names_years = ['Able_1950'];
-    // let name_year;
-    // let object = {};
-
-    // data.forEach((entry, index) => {
-    //   name_year = `${entry.name}_${entry.year}`;
-    //   if (names_years.indexOf(name_year) > -1) {
-    //     var point = []
-    //     point.push(parseInt(entry.latitude))
-    //     point.push(parseInt(entry.longitude))
-    //     object[name_year]
-    //     latlong.push([point])
-    //     object[name_year] = latlong;
-    //   }
-    //   //console.log(latlong);
-    //   else {
-    //     latlong = []
-    //     new_name_year = `${entry.name}_${entry.year}`;
-    //     names_years.push(new_name_year);
-    //   }
-    // })
-
-    // console.log(object);
-  }
-  )}
-
-  costwind();
-
-function buildLeaflet() {
-      // The first parameter are the coordinates of the center of the map
-      // The second parameter is the zoom level
-      var map2 = L.map('map').setView([29.712, -95.006], 8);
-      
-      // {s}, {z}, {x} and {y} are placeholders for map tiles
-      // {x} and {y} are the x/y of where you are on the map
-      // {z} is the zoom level
-      // {s} is the subdomain of cartodb
-        var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-      });
-      // Now add the layer onto the map
-      map2.addLayer(layer);
-  }
-
-  buildLeaflet();
-
-function buildCostMap() {
-  
   const map1 = L.map("myDiv", {
     center: [25.07, -70.1],
     zoom: 4
@@ -303,9 +238,9 @@ function buildCostMap() {
       zoomOffset: -1
   }).addTo(map1);
 
-  L.geoJson(statesData).addTo(map1);
+  L.geoJson(res).addTo(map1);
 
+  // here below this line is the code for Neil
 }
+amyChart();
 
-buildCostMap();
-console.log(data);
