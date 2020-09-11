@@ -29,22 +29,36 @@
                 <p style="text-align:center">Group 5 - Project 2</p>
             </div>
         </div>
-        <div class = "col-md-12">
-            <h4>Geomap</h4>
-            <div id="geomap" style="height: 500px;"></div>
+        <h3>Introduction to the project</h3>
+        <p>Over the last several years costly disasters have been particularly destructive. The historic 2019 U.S. inland flooding across many Central states follows the historic 2018 and 2017 Atlantic hurricane and Western wildfire seasons, which set new damage cost records. These disasters have impacted dozens of Eastern, Central, and Western states, in addition to Caribbean territories (i.e., Puerto Rico and the U.S. Virgin Islands).</p>
+        <p>Join us in this review the historical hurricanes data.</p><br>
+        
+        <div class = "row">
+            <div class = "col-md-12">
+                <div id="myDiv"></div>
+            </div>
         </div>
-
+        <h4 style="text-align:center">Damages overview - US by states</h4>
+        <div class = "chloropleth">
+            <div class = "row">
+                <div class = "col-md-4"><br><br>
+                    <p>The costliest damages were recorded from for Texas state.</p>
+                    <p>The latest statistics from NOAA shows total damages from hurricanes and floods over 250,000kUSD. Over 210kUSD for Florida. And almost 180kUSD for Louisiana.</p>
+                    <p>Mississippi, North Carolina and New York states encountered on average about 50kUSD in normalized losses.</p>
+                    <p>Other states below 20kUSD.</p>
+                </div>
+                <div class = "col-md-8">
+                    <div id="costmap"></div>
+                </div>
+            </div>
+        </div><hr>
         <div class = "row">
             <div class = "col-md-6">
                 <canvas id="myChart" width="100" height="100"></canvas>
             </div>
             
         </div>
-        <div class = "row">
-            <div class = "col-md-12">
-                <div id="myDiv"></div>
-            </div>
-        </div>
+
     </div>
 
         <!-- <div class="row">
@@ -104,7 +118,23 @@
 
         <!-- <div> -->
        
-    
+    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Exlore more</a>
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/data">Master data</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/IrinaUX/project2_heroku">GitHub</a>
+        </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+        </li> -->
+        </ul>
+    </nav>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>

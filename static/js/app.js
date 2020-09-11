@@ -161,15 +161,16 @@ var chartData = [{
   z: costs,
   text: states,
   zmin: 0,
-  zmax: 17000,
+  zmax: 100000,
   colorscale: [
-      [0, 'rgb(242,240,247)'], [0.2, 'rgb(218,218,235)'],
-      [0.4, 'rgb(188,189,220)'], [0.6, 'rgb(158,154,200)'],
-      [0.8, 'rgb(117,107,177)'], [1, 'rgb(84,39,143)']
+      [0, 'rgb(154, 200, 158)'], [0.2, 'rgb(188,189,220)'],
+      [0.4, 'rgb(158,154,200)'], [0.6, 'rgb(118,82,165)'],
+      [0.8, 'rgb(84,39,143)'], [1, 'rgb(234,60,83)']
+      // [0.8, 'rgb(118,82,165)'], [1, 'rgb(84,39,143)']
   ],
   colorbar: {
       title: 'Millions USD',
-      thickness: 0.2
+      thickness: 20
   },
   marker: {
       line:{
@@ -181,7 +182,7 @@ var chartData = [{
 
 
 var layout = {
-  title: 'Cumulative Hurricane Damages',
+  title: 'Cumulative Normalized Hurricane Damages',
   geo:{
       scope: 'usa',
       showlakes: true,
@@ -189,7 +190,7 @@ var layout = {
   }
 };
 
-Plotly.newPlot("geomap", chartData, layout, {showLink: false});
+Plotly.newPlot("costmap", chartData, layout, {showLink: false});
 }
 
 

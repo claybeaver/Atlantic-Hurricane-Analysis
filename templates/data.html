@@ -13,7 +13,7 @@
     <div class="container">
         <div class="jumbotron" style="text-align: center">
             <div class="col-md-12">
-                <h2><a href="/">Home</a></h2>
+                <p style="text-align:left;"><a href="/">Home</a></p>
             </div>
             <h1>Atlantic Hurricanes</h1></div>
                 <div>
@@ -78,11 +78,29 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Exlore more</a>
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Master data</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/IrinaUX/project2_heroku">GitHub</a>
+        </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+        </li> -->
+        </ul>
+    </nav>
 
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-    <!-- CSS only -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<!-- CSS only -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <!-- JS, Popper.js, and jQuery -->

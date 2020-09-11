@@ -25,7 +25,9 @@ html {
 
 /* set map, body, and html to 100% of the screen size */
 #cost,
-body,
 html {
   height: 100%;
+  background-color: white;
 }
+
+
