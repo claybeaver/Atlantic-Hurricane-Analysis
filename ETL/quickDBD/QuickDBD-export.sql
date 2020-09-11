@@ -1,4 +1,4 @@
-﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
+-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
 -- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
 -- Modify this code to update the DB schema diagram.
@@ -24,7 +24,6 @@ CREATE TABLE "hurricanes" (
     "hurricane_id" INT   NOT NULL,
     "date" INT   NOT NULL,
     "name" VARCHAR(255)   NOT NULL,
-    "time" INT   NOT NULL,
     "status" VARCHAR(255)   NOT NULL,
     "latitude" VARCHAR(255)   NOT NULL,
     "longitude" VARCHAR(255)   NOT NULL,
@@ -32,7 +31,8 @@ CREATE TABLE "hurricanes" (
     "air_pressure" INT   NOT NULL,
     "latitude_decimal" numeric   NOT NULL,
     "longitude_decimal" numeric   NOT NULL,
-    "year" INT   NOT NULL
+    "year" INT   NOT NULL,
+	"name_year" VARCHAR(255)
 );
 
 CREATE TABLE "master" (
@@ -47,7 +47,8 @@ CREATE TABLE "master" (
     "latitude_decimal" numeric   NOT NULL,
     "longitude_decimal" numeric   NOT NULL,
     "year" INT   NOT NULL,
-    "hurricane_id" INT   NOT NULL
+    "hurricane_id" INT   NOT NULL,
+	"name_year" VARCHAR(255)
 );
 
 CREATE TABLE "maxwinds" (
@@ -67,7 +68,6 @@ CREATE TABLE "cost_wind" (
     "norm_damage_usd" numeric   NOT NULL,
     "date" INT   NOT NULL,
     "name" VARCHAR(255)   NOT NULL,
-    "time" INT   NOT NULL,
     "status" VARCHAR(25)   NOT NULL,
     "max_wind" INT   NOT NULL,
     "air_pressure" INT   NOT NULL,

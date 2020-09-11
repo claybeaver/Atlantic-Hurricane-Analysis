@@ -1,6 +1,6 @@
 select * from cost;
-select * from cost_state;
 select * from fatalities;
+select * from cost_state;
 select * from hurricanes;
 select * from master;
 select * from maxwinds;
