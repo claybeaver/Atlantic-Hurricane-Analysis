@@ -1,3 +1,5 @@
+console.log(API_KEY)
+
 function buildGeoMap() {
   const url = "/jsondata";
   d3.json(url).then(function (data) {
@@ -5,31 +7,21 @@ function buildGeoMap() {
 
   // Create an initial map object
   // Set the longitude, latitude, and the starting zoom level
-  const myMap = L.map('map',
-{
-    center:[40.71, -74],
-    zoom: 11
-});
-
-const myStyle = {
-    "color": "#ff7800",
-    "weight": 5,
-    "opacity": 0.65
-};
-
+  const myMap = L.map("map", {
+    center:[29, -90],
+    zoom: 10
+  })
+  
   // Add a tile layer (the background map image) to our map
   // Use the addTo method to add objects to our map
-
-  // https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={pk.eyJ1IjoiaXJpbmFocGRhIiwiYSI6ImNrZTk5ZWl6czB0ZGIyeHJucnBidXF4NG0ifQ.5yKGPM6y8H8d_d_Gj8KAVw}
-  var streets = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
     tileSize: 512,
     maxZoom: 18,
     zoomOffset: -1,
     id: "mapbox/streets-v11",
     accessToken: API_KEY
-  });
-  L.control.layers(streets).addTo(myMap);
+  }).addTo(myMap);
 
 
 

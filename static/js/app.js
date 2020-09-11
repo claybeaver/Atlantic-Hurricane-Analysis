@@ -257,7 +257,7 @@ function costwind(sample) {
   function buildLeaflet() {
       // The first parameter are the coordinates of the center of the map
       // The second parameter is the zoom level
-      var map = L.map('map').setView([29.712, -90.006], 8);
+      var map = L.map('map').setView([29.712, -95.006], 8);
       
       // {s}, {z}, {x} and {y} are placeholders for map tiles
       // {x} and {y} are the x/y of where you are on the map
