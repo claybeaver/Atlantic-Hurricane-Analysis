@@ -225,49 +225,21 @@ const amyChart = async() => {
   const res = await (await fetch("/cost_by_state")).json();
   console.log(res);
 
-  Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv', function(err, rows){
-    function unpack(rows, key) {
-        return rows.map(function(row) { return row[key]; });
-    }
+  url = "https://leafletjs.com/examples/choropleth/us-states.js";
+  // d3.json(url, function(data) {
+  //   console.log(data.features);
 
-    var data = [{
-        type: 'choropleth',
-        locationmode: 'USA-states',
-        locations: unpack(rows, 'code'),
-        z: unpack(rows, 'total exports'),
-        text: unpack(rows, 'state'),
-        zmin: 0,
-        zmax: 17000,
-        colorscale: [
-            [0, 'rgb(242,240,247)'], [0.2, 'rgb(218,218,235)'],
-            [0.4, 'rgb(188,189,220)'], [0.6, 'rgb(158,154,200)'],
-            [0.8, 'rgb(117,107,177)'], [1, 'rgb(84,39,143)']
-        ],
-        colorbar: {
-            title: 'Millions USD',
-            thickness: 0.2
-        },
-        marker: {
-            line:{
-                color: 'rgb(255,255,255)',
-                width: 2
-            }
-        }
-    }];
-
-
-    var layout = {
-        title: '2011 US Agriculture Exports by State',
-        geo:{
-            scope: 'usa',
-            showlakes: true,
-            lakecolor: 'rgb(255,255,255)'
-        }
-    };
-
-    Plotly.newPlot("cost", data, layout, {showLink: false});
-});
-
+    var map3 = L.map('map').setView([37.8, -96], 4);
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + API_KEY, {
+      id: 'mapbox/light-v9',
+      attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+      tileSize: 512,
+      zoomOffset: -1
+    }).addTo(map3);
+    
+    
+    // })
+    
 }
 amyChart();
 
