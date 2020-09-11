@@ -128,6 +128,23 @@ def home():
 # Query the database and send the jsonified results
 @app.route("/geomap", methods=["GET", "POST"])
 def geomap():
+    rows = engine.execute("select name, hurricane_id, year, latitude_decimal, longitude_decimal, max_wind, air_pressure, time from master")
+    objects_list = []
+    for row in rows:
+        d = collections.OrderedDict()
+        d['name'] = row[0]
+        d['hurricane_id'] = row[1]
+        d['year'] = row[2]
+        d['latitude'] = str(row[3])
+        d['longitude'] = str(row[4])
+        d['max_wind'] = row[5]
+        d['air_pressure'] = row[6]
+        d['time'] = row[7]
+        objects_list.append(d)
+
+    j = json.dumps(objects_list)
+    objects_file = 'geomap.js'
+    f = open(objects_file,'w')
     return render_template("geomap.html")
 
 # create route that renders index.html template

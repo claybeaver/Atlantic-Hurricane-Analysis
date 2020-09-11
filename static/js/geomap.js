@@ -1,8 +1,11 @@
 function buildGeoMap() {
+  const url = "/jsondata";
+  d3.json(url).then(function (data) {
+    console.log(data);
 
   // Create an initial map object
   // Set the longitude, latitude, and the starting zoom level
-  const map = L.map('map',
+  const myMap = L.map('map',
 {
     center:[40.71, -74],
     zoom: 11
@@ -17,14 +20,18 @@ const myStyle = {
   // Add a tile layer (the background map image) to our map
   // Use the addTo method to add objects to our map
 
-  L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-  maxZoom: 18,
-  id: "mapbox/streets-v11",
-  tileSize: 512,
-  zoomOffset: -1,
-  accessToken: API_KEY
-}).addTo(map);
+  // https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={pk.eyJ1IjoiaXJpbmFocGRhIiwiYSI6ImNrZTk5ZWl6czB0ZGIyeHJucnBidXF4NG0ifQ.5yKGPM6y8H8d_d_Gj8KAVw}
+  var streets = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    tileSize: 512,
+    maxZoom: 18,
+    zoomOffset: -1,
+    id: "mapbox/streets-v11",
+    accessToken: API_KEY
+  });
+  L.control.layers(streets).addTo(myMap);
+
+
 
   // L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   //   attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -79,6 +86,7 @@ const myStyle = {
   //   weight: 3,
   //   stroke: true
   // }).addTo(map);
+  })
 }
 
 buildGeoMap();
