@@ -271,4 +271,4 @@ function costwind(sample) {
       map.addLayer(layer);
   }
 
-  // buildLeaflet();
+  buildLeaflet();
