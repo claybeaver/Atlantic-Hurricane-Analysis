@@ -8,23 +8,30 @@ function mapHurricane(sample) {
     // console.log(data);
 
     let latlong = [];
-    let names_years = ['Able_1950'];
+    let names_years = [];
     let name_year;
     let object = {};
+    let hurdata = {};
+    let windspeed = [];
 
     data.forEach((entry, index) => {
       name_year = `${entry.name}_${entry.year}`;
       if (names_years.indexOf(name_year) > -1) {
         var point = []
+        hurdata = {}
         point.push(parseInt(entry.latitude))
         point.push(parseInt(entry.longitude))
-        object[name_year]
+        windspeed.push(parseInt(entry.max_wind))
+        hurdata['Coordinates'] = latlong;
+        hurdata['Wind Speed'] = windspeed;
         latlong.push([point])
-        object[name_year] = latlong;
+        object[name_year] = hurdata;
       }
       //console.log(latlong);
       else {
         latlong = []
+        windspeed = []
+        hurdata = {}
         new_name_year = `${entry.name}_${entry.year}`;
         names_years.push(new_name_year);
       }
@@ -32,24 +39,11 @@ function mapHurricane(sample) {
 
     console.log(object);
 
-    // // ******** OLD CODE FOR CONCAT LAT/LON *********
-    // var coordinates = []
-    // for (var i = 0; i < latitudes.length; i++) {
-    //   coordinates[i] = [latitudes[i], longitudes[i]];
-    // }
-    // // **********************************************
-    // console.log(latitudes);
-    // console.log(longitudes);
-    // console.log(coordinates);
-    // console.log(hurricaneName);
-    // console.log(names_years);
-
     // Create an initial map object
     const myMap = L.map("map", {
       center: [25.07, -70.1],
       zoom: 4
     })
-    // .setView([25.07, -70.1], 4);
 
     // Add a tile layer to map
     L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -126,5 +120,4 @@ function mapHurricane(sample) {
 }
 
 mapHurricane();
-
 
