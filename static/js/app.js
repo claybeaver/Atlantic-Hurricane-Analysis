@@ -7,6 +7,8 @@
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
 
+// const { read } = require("fs");
+
 
 
 
@@ -121,73 +123,205 @@ const clayChart = async() => {
 const data = await (await fetch("/top10")).json();
 // console.log(data);
 
-// here below this line is the code for Clay
-let latlong = [];
-let names_years = [];
-let name_year;
-let object = {};
-let hurdata = {};
-let windspeed = [];
 
-data.forEach((entry, index) => {
-   name_year = `${entry.name}_${entry.year}`;
-   if (names_years.indexOf(name_year) > -1) {
-      var point = []
-      hurdata = {}
-      point.push(parseInt(entry.latitude))
-      point.push(parseInt(entry.longitude))
-      windspeed.push(parseInt(entry.max_wind))
-      hurdata['Coordinates'] = latlong;
-      hurdata['Wind Speed'] = windspeed;
-      latlong.push(point)
-      object[name_year] = hurdata;
-   }
-  //console.log(latlong);
-   else {
-      latlong = []
-      windspeed = []
-      hurdata = {}
-      new_name_year = `${entry.name}_${entry.year}`;
-      names_years.push(new_name_year);
-   }
-})
-console.log(object)
-
-    // Create an initial map object
-    const myMap = L.map("geomap").setView([25.07, -70.1], 4);
-
-   //  // Add a tile layer to map
-   //  const dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-   //    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-   //    id: "dark-v10",
-   //    accessToken: API_KEY
-   //  }).addTo(myMap);
+   const dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+      attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+      id: "dark-v10",
+      accessToken: API_KEY
+      });
 
    const light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
       attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
       maxZoom: 18,
       id: "light-v10",
       accessToken: API_KEY
-      }).addTo(myMap);
+      });
    
-   //// ****** Irina'as code ******* /////
+   // Initialize all of the LayerGroups we'll be using
+   const layers = {
+      Hurricane_Andrew_1992: new L.LayerGroup(),
+      Hurricane_Charley_2004: new L.LayerGroup(),
+      Hurricane_Harvey_2017: new L.LayerGroup(),
+      Hurricane_Ike_2008: new L.LayerGroup(),
+      Hurricane_Irma_2017: new L.LayerGroup(),
+      Hurricane_Ivan_2004: new L.LayerGroup(),
+      Hurricane_Katrina_2005: new L.LayerGroup(),
+      Hurricane_Rita_2005: new L.LayerGroup(),
+      Hurricane_Sandy_2012: new L.LayerGroup(),
+      Hurricane_Wilma_2005: new L.LayerGroup()
+   };
+
+   // Create an initial map object
+   const myMap = L.map("geomap", {
+      center: [30.73, -84.50],
+      zoom: 4,
+      layers: [
+         layers.Hurricane_Andrew_1992,
+         layers.Hurricane_Charley_2004,
+         layers.Hurricane_Harvey_2017,
+         layers.Hurricane_Ike_2008,
+         layers.Hurricane_Irma_2017,
+         layers.Hurricane_Ivan_2004,
+         layers.Hurricane_Katrina_2005,
+         layers.Hurricane_Rita_2005,
+         layers.Hurricane_Sandy_2012,
+         layers.Hurricane_Wilma_2005
+      ]
+   });
+
+   // Create an overlays object to add to the layer control
+   const overlays = {
+      "Andrew_1992": layers.Hurricane_Andrew_1992,
+      "Charley_2004": layers.Hurricane_Charley_2004,
+      "Harvey_2017": layers.Hurricane_Harvey_2017,
+      "Ike_2008": layers.Hurricane_Ike_2008,
+      "Irma_2017": layers.Hurricane_Irma_2017,
+      "Ivan_2004": layers.Hurricane_Ivan_2004,
+      "Katrina_2005": layers.Hurricane_Katrina_2005,
+      "Rita_2005": layers.Hurricane_Rita_2005,
+      "Sandy_2012": layers.Hurricane_Sandy_2012,
+      "Wilma_2005": layers.Hurricane_Wilma_2005
+   };
+
+
+   light.addTo(myMap)
+
+   // Only one base layer can be shown at a time
+   const baseMaps = {
+      Light: light,
+      Dark: dark
+   };
    
+   L.control.layers(baseMaps, overlays).addTo(myMap);
+
    let featureType;
-   let type = feature.properties.type;
-   let place = feature.properties.place;
+
+   let latlong = [];
+   let names_years = []; //[]
+   let name_year;
+   let object = {};
+   // let hurdata = {};
+   let windspeed = [];
+
+   data.forEach((entry, index) => {
+
+      name_year = `${entry.name}_${entry.year}`;
+      
+      if (names_years.indexOf(name_year) > -1) {
+         var point = []
+         hurdata = {}
+         latitude = parseInt(entry.latitude);
+         longitude = parseInt(entry.longitude);
+         point.push(latitude);
+         point.push(longitude);
+         latlong.push(point);
+         console.log("Latlon")
+         windspeed.push(parseInt(entry.max_wind))
+         hurdata['Coordinates'] = latlong;
+         hurdata['Wind Speed'] = windspeed;
+         
+         object[name_year] = hurdata;
+      }
+      // console.log(latlong);
+      else {
+         latlong = []
+         windspeed = []
+         hurdata = {}
+         new_name_year = `${entry.name}_${entry.year}`;
+         names_years.push(new_name_year);
+      }
+      // console.log(names_years);
+         
+      //// ****** Irina'as code ******* /////
+      // Add control for layers
 
 
-   //// **************************** /////
+      let type = entry.name_year;
+
+      // assign feature type
+      if (type === "Andrew_1992") {featureType = "Hurricane_Andrew_1992";}
+      else if (type === "Charley_2004") {featureType = "Hurricane_Charley_2004";}
+      else if (type === "Harvey_2017") {featureType = "Hurricane_Harvey_2017";}
+      else if (type === "Ike_2008") {featureType = "Hurricane_Ike_2008";}
+      else if (type === "Irma_2017") {featureType = "Hurricane_Irma_2017";}
+      else if (type === "Ivan_2004") {featureType = "Hurricane_Ivan_2004";}
+      else if (type === "Katrina_2005") {featureType = "Hurricane_Katrina_2005";}
+      else if (type === "Rita_2005") {featureType = "Hurricane_Rita_2005";}
+      else if (type === "Sandy_2012") {featureType = "Hurricane_Sandy_2012";}
+      else {featureType = "Hurricane_Wilma_2005";}
+      // console.log(featureType);
 
 
-   var hurricane = object.Katrina_2005
-   var line = hurricane.Coordinates
-   //  console.log(line)
+      // draw the data with custom colors and proportional circle radius
+      // console.log(object);
 
-    // Create a polyline using the line coordinates and pass in some initial options
-    L.polyline(line, {
-      color: "red"
-    }).addTo(myMap);
+      // var hurricane = object.Andrew_1992;
+      // var line = hurricane.Coordinates;
+
+
+      // const newFeature = L.polyline(line, {
+      //    color: "red",
+      //    weight: 1
+      //    // color: getColor(sig),
+      //    // fillOpacity: 0.7,
+      //    // radius: radius
+      // });
+
+      // // Add features to the layers according to their types
+      // newFeature.addTo(layers[featureType]);
+
+      // // newFeature.bindPopup(`<h3>${type}: ${place}</h3><hr>
+      // //   <h4>Time: ${date}</h4><hr>
+      // //   <h4>Magnitude: ${mag}</h4><hr>
+      // //   <h4>Significance: ${sig}</h4>`, {maxWidth: 560}) //
+      // // .addTo(myMap)
+   
+
+      
+   })
+   // console.log(data);
+
+      // Create an initial map object
+      // const myMap = L.map("geomap").setView([25.07, -70.1], 4);
+
+      
+      // Add dropdown layer controls for all hurricanes
+
+// })
+   //   })
+
+
+
+
+
+
+
+   // // draw the data with custom colors and proportional circle radius
+   // var hurricane = object.Katrina_2005;
+   // console.log(hurricane);
+   // var line = hurricane.Coordinates;
+   
+   // const newFeature = L.polyline(line, {
+   //    color: "red",
+   //    weight: .5
+   //    // color: getColor(sig),
+   //    // fillOpacity: 0.7,
+   //    // radius: radius
+   // });
+
+   // // newFeature.addTo(layers[Hurricane_Katrina_2005]);
+
+   
+
+   // //// **************************** /////
+
+
+   // //  console.log(line)
+
+   //  // Create a polyline using the line coordinates and pass in some initial options
+   //  L.polyline(line, {
+   //    color: "red"
+   //  }).addTo(myMap);
 
 
 
