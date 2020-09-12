@@ -20,19 +20,16 @@ body {
 #map,
 html {
   height: 600px;
-  padding-bottom: 40px;
 }
 
 #geomap,
 html {
   height: 600px;
-  padding-bottom: 40px;
 }
 
 #top10,
 html {
   height: 600px;
-  padding-bottom: 40px;
 }
 
 /* set map, body, and html to 100% of the screen size */
@@ -41,12 +38,11 @@ html {
   padding-top:40px;
   height: 600px;
   background-color: white;
-  padding-bottom: 40px;
 }
 
 .header-section {
   text-align: center;
-  padding-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 
