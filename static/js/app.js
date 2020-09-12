@@ -215,9 +215,9 @@ amyChart();
 
 
 
-const top50cost = async() => {
+const top10 = async() => {
    // here below this line is the code for Neil
-   const data = await (await fetch("/top50cost")).json();
+   const data = await (await fetch("/top10")).json();
    console.log(data);
 
    // here below this line is the code for Clay

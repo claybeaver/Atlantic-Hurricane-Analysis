@@ -147,9 +147,9 @@ def data():
     return render_template("data.html", data=rows)
 
 # create route for top 50 costliest hurricanes
-@app.route("/top50cost")
-def top50cost():
-    rows = engine.execute("select name, hurricane_id, year, latitude, longitude, max_wind, air_pressure, status, norm_damage_usd, damage_usd from top50cost")
+@app.route("/top10")
+def top10():
+    rows = engine.execute("select name, hurricane_id, year, latitude, longitude, max_wind, air_pressure, status, norm_damage_usd, damage_usd, time from top10")
     objects_list = []
     for row in rows:
         d = collections.OrderedDict()
@@ -163,6 +163,7 @@ def top50cost():
         d['status'] = row[7]
         d['norm_damage_usd'] = row[8]
         d['damage_usd'] = row[9]
+        d['time'] = row[10]
         objects_list.append(d)
 
     j = json.dumps(objects_list)
