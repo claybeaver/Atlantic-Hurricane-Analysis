@@ -214,6 +214,14 @@ const data = await (await fetch("/top10")).json();
                         'rgb(102, 102, 102)';
     }
 
+    function getWidth(wind) {
+      return wind > 150 ? 5:
+         wind > 100 ? 4:
+         wind > 50  ? 3:    
+                      2;
+    }
+
+
 
    let featureType;
 
@@ -229,8 +237,8 @@ const data = await (await fetch("/top10")).json();
       name_year = entry.name_year;
       // console.log(entry);
       if (names_years.indexOf(name_year) > -1) {
-         console.log("IF");
-         console.log(name_year);
+         // console.log("IF");
+         // console.log(name_year);
          var point = [];
          hurdata = {};
          point.push(parseInt(entry.latitude));
@@ -240,7 +248,7 @@ const data = await (await fetch("/top10")).json();
          hurdata['Coordinates'] = latlong;
          hurdata['Wind Speed'] = windspeed;
          object[name_year] = hurdata;
-         console.log(latlong);
+         // console.log(latlong);
          // assign feature type
          if (name_year === "Andrew_1992") {featureType = "Hurricane_Andrew_1992";}
          else if (name_year === "Charley_2004") {featureType = "Hurricane_Charley_2004";}
@@ -256,11 +264,16 @@ const data = await (await fetch("/top10")).json();
          // var hurricane = object.name_year;
          // var line = hurricane.Coordinates
 
-         console.log(hurdata.Coordinates);
+         // console.log(hurdata.Coordinates);
+
+         // extract wind speed parameter for getWidth function
+         let windspeedwidth = hurdata['Wind Speed'];
+
+         console.log(getWidth(windspeedwidth));
 
          const newFeature = L.polyline(hurdata.Coordinates, {
          color: getColor(name_year),
-         weight: 1
+         weight: 4 //getWidth(windspeedwidth)
             // color: getColor(sig),
             // fillOpacity: 0.7,
             // radius: radius
@@ -271,7 +284,7 @@ const data = await (await fetch("/top10")).json();
       }
       
       else {
-         console.log("ELSE");
+         // console.log("ELSE");
 
          latlong = []
          windspeed = []
@@ -302,9 +315,12 @@ const data = await (await fetch("/top10")).json();
          else if (name_year === "Sandy_2012") {featureType = "Hurricane_Sandy_2012";}
          else {featureType = "Hurricane_Wilma_2005";}
          
+         let windspeedwidth = hurdata['Wind Speed'];
+         // console.log(windspeedwidth);
+
          const newFeature = L.polyline(hurdata.Coordinates, {
             color: getColor(name_year),
-            weight: 1
+            weight: 4 // getWidth(windspeedwidth)
                // color: getColor(sig),
                // fillOpacity: 0.7,
                // radius: radius
@@ -331,7 +347,7 @@ const data = await (await fetch("/top10")).json();
 
       // var hurricane = object.Katrina_2005;
       // var line 
-      console.log()
+      // console.log()
 
    
 
@@ -374,12 +390,11 @@ const amyChart = async() => {
      z: costs,
      text: states,
      zmin: 0,
-     zmax: 100000,
+     zmax: 50000,
      colorscale: [
          [0, '#e1e7e7'], [0.2, '#9a9f9f'],
          [0.4, '#848888'], [0.6, '#6f7171'],
-         [0.8, '#5b5c5c'], [1, '#474747']
-         // [0.8, 'rgb(118,82,165)'], [1, 'rgb(84,39,143)']
+         [0.8, '255, 128, 0'], [1, '255, 0, 0']
      ],
      colorbar: {
          title: 'Millions USD',
