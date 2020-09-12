@@ -1,4 +1,3 @@
-
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
 // *************************************************                                    ***********************************************************
@@ -7,109 +6,71 @@
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
 
-// const { read } = require("fs");
 
 
 
-
-const neilChart = async() => {
+const neilChart = async () => {
    // here below this line is the code for Neil
- const datas = await (await fetch("/top10")).json();
- 
- var hurricanes = datas.map(hurricane => hurricane.name_year)
- 
- 
- let names_years = ['Andrew_1992'];
- let name_year;
- let hurdata = {};
- let cost = 0;
- let windSpeeds = []
- let hurData2 = []
- var colors = ['rgba(0, 0, 0,.5)','rgba(75, 93, 156,.5)','rgba(255, 0, 0,.5)','rgba(0, 161, 0,.5)','rgba(0, 0, 255,.5)',
- 'rgb(0, 165, 255,.5)','rgba(0, 255, 0,.5)','rgba(238, 130, 238,.5)','rgba(255, 165, 0,.5)','rgba(102, 102, 102,.5)']
- 
- datas.forEach(entry => {
-    name_year = entry.name_year
-    if (names_years.indexOf(name_year) > -1) {
-       cost = entry.damage_usd
-       windSpeeds.push(parseInt(entry.max_wind))
-       hurdata['y'] = d3.max(windSpeeds);
-       hurdata['x'] = cost;
-       hurdata['r'] = cost/2;
-       
-    }
- 
-    else {
-      //  console.log(hurdata)
-       hurData2.push(hurdata)
-       cost = 0;
-       windSpeeds = []
-       hurdata = {}
-       new_name_year = `${entry.name}_${entry.year}`;
-       names_years.push(new_name_year);
-    }
- 
-    
-   
- })
- hurData2.push(hurdata)
-//  console.log(hurData2);
+   const data = await (await fetch("/costwind")).json();
+   var costwinds = []
+   var hurricanes = data.map(hurricane => hurricane.name_year)
+   data.forEach(hurricane => {
+      var windspeed = 0;
+      var cost = 0;
+      var costwind = {}
 
- 
- var datasetz = []
- var dataset = {}
-//  console.log(names_years[0])
-//  console.log(colors[0])
-//  console.log(hurData2[0])
- for (var i=0; i<names_years.length; i++) {
-    dataset = []
-    dataset['label'] = names_years[i]
-    dataset['backgroundColor'] = colors[i]
-    dataset['borderColor'] = colors[i]
-    dataset['data'] = [hurData2[i]]
-    datasetz.push(dataset)
- }
- 
-//  console.log(datasetz[0])
-//  console.log(names_years.length)
-//  console.log(hurData2[0])
- 
- var ctx = document.getElementById('myChart').getContext('2d');
- var scatterChart = new Chart(ctx, {
-    type: 'bubble',
-    data: {
-       labels: names_years,
-       datasets: datasetz
 
-    },
-    options: {
-       scales: {
-          xAxes: [{
-             scaleLabel: {
-                display: true,
-                labelString: 'Damage Cost in USD (Billions)'
-             }
-          }],
-          yAxes: [{
-             scaleLabel: {
-                display: true,
-                labelString: 'Maximum Wind Speed (MPH)'
-             }
-          }]
-       },
-       tooltips: {
-          callbacks: {
-             label: function(tooltipItem, data) {
-                var label = data.labels[tooltipItem.index];
-                return  tooltipItem.xLabel + ' Billion USD, ' + tooltipItem.yLabel + ' MPH';
-             }
-          }
-       }
-    }
- });
- 
- }
- neilChart();
+      windspeed = hurricane.max_wind
+      cost = hurricane.damage_usd
+      costwind['x'] = cost
+      costwind['y'] = windspeed
+      costwind['r'] = cost
+      costwinds.push(costwind)
+      colors = ['red', 'green', 'yellow']
+
+
+   })
+
+
+   // console.log(costwinds);
+   var ctx = document.getElementById('myChart').getContext('2d');
+   var scatterChart = new Chart(ctx, {
+      type: 'bubble',
+      data: {
+         labels: hurricanes,
+         datasets: [{
+            label: 'Top 50 Costliest Hurricanes',
+            data: costwinds
+         }]
+      },
+      options: {
+         scales: {
+            xAxes: [{
+               scaleLabel: {
+                  display: true,
+                  labelString: 'Damage Cost in USD (Billions)'
+               }
+            }],
+            yAxes: [{
+               scaleLabel: {
+                  display: true,
+                  labelString: 'Maximum Wind Speed (MPH)'
+               }
+            }]
+         },
+         tooltips: {
+            callbacks: {
+               label: function (tooltipItem, data) {
+                  var label = data.labels[tooltipItem.index];
+                  return label + ': (' + tooltipItem.xLabel + ' Billion USD, ' + tooltipItem.yLabel + ' MPH)';
+               }
+            }
+         }
+      }
+   });
+
+}
+neilChart();
 
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
@@ -119,24 +80,43 @@ const neilChart = async() => {
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
 
-const clayChart = async() => {
-const data = await (await fetch("/top10")).json();
-// console.log(data);
+const clayChart = async () => {
+   const data = await (await fetch("/top10")).json();
+   // console.log(data);
+
+   // here below this line is the code for Clay
+   let latlong = [];
+   let names_years = [];
+   let name_year;
+   let object = {};
+   let hurdata = {};
+   let windspeed = [];
+
+   data.forEach((entry, index) => {
+      name_year = `${entry.name}_${entry.year}`;
+      if (names_years.indexOf(name_year) > -1) {
+         var point = []
+         hurdata = {}
+         point.push(parseInt(entry.latitude))
+         point.push(parseInt(entry.longitude))
+         windspeed.push(parseInt(entry.max_wind))
+         hurdata['Coordinates'] = latlong;
+         hurdata['Wind Speed'] = windspeed;
+         latlong.push(point)
+         object[name_year] = hurdata;
+      }
+      //console.log(latlong);
+      else {
+         latlong = []
+         windspeed = []
+         hurdata = {}
+         new_name_year = `${entry.name}_${entry.year}`;
+         names_years.push(new_name_year);
+      }
+   })
+   console.log(object)
 
 
-   const dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-      attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-      id: "dark-v10",
-      accessToken: API_KEY
-      });
-
-   const light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-      attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-      maxZoom: 18,
-      id: "light-v10",
-      accessToken: API_KEY
-      });
-   
    // Initialize all of the LayerGroups we'll be using
    const layers = {
       Hurricane_Andrew_1992: new L.LayerGroup(),
@@ -150,6 +130,8 @@ const data = await (await fetch("/top10")).json();
       Hurricane_Sandy_2012: new L.LayerGroup(),
       Hurricane_Wilma_2005: new L.LayerGroup()
    };
+
+
 
    // Create an initial map object
    const myMap = L.map("geomap", {
@@ -169,6 +151,15 @@ const data = await (await fetch("/top10")).json();
       ]
    });
 
+   const streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+  tileSize: 512,
+  maxZoom: 18,
+  zoomOffset: -1,
+  id: "mapbox/streets-v11",
+  accessToken: API_KEY
+   }).addTo(myMap);
+
    // Create an overlays object to add to the layer control
    const overlays = {
       "Andrew_1992": layers.Hurricane_Andrew_1992,
@@ -183,146 +174,81 @@ const data = await (await fetch("/top10")).json();
       "Wilma_2005": layers.Hurricane_Wilma_2005
    };
 
+   // Create a control for our layers, add our overlay layers to it
+   L.control.layers(null, overlays).addTo(myMap);
 
-   light.addTo(myMap)
+   // Andrew_1992
+   var hurricane1 = object.Andrew_1992
+   var line1 = hurricane1.Coordinates
+   console.log(line1)
 
-   // Only one base layer can be shown at a time
-   const baseMaps = {
-      Light: light,
-      Dark: dark
-   };
-   
-   L.control.layers(baseMaps, overlays).addTo(myMap);
+   // Charley_2004
+   var hurricane2 = object.Charley_2004
+   var line2 = hurricane2.Coordinates
+   console.log(line2)
 
-   let featureType;
-
-   let latlong = [];
-   let names_years = []; //[]
-   let name_year;
-   let object = {};
-   // let hurdata = {};
-   let windspeed = [];
-
-   data.forEach((entry, index) => {
-
-      name_year = `${entry.name}_${entry.year}`;
-      
-      if (names_years.indexOf(name_year) > -1) {
-         var point = []
-         hurdata = {}
-         // console.log(hurdata);
-         latitude = parseInt(entry.latitude);
-         longitude = parseInt(entry.longitude);
-         point.push(latitude);
-         point.push(longitude);
-         latlong.push(point);
-         console.log()
-         windspeed.push(parseInt(entry.max_wind))
-         hurdata['Coordinates'] = latlong;
-         hurdata['Wind Speed'] = windspeed;
-         object[name_year] = hurdata;
-      }
-      else {
-         latlong = []
-         windspeed = []
-         hurdata = {}
-         new_name_year = `${entry.name}_${entry.year}`;
-         names_years.push(new_name_year);
-      }
-      
-      
-      // console.log(names_years);
-         
-      //// ****** Irina'as code ******* /////
-      // Add control for layers
-
-      // assign feature type
-      if (name_year === "Andrew_1992") {featureType = "Hurricane_Andrew_1992";}
-      else if (name_year === "Charley_2004") {featureType = "Hurricane_Charley_2004";}
-      else if (name_year === "Harvey_2017") {featureType = "Hurricane_Harvey_2017";}
-      else if (name_year === "Ike_2008") {featureType = "Hurricane_Ike_2008";}
-      else if (name_year === "Irma_2017") {featureType = "Hurricane_Irma_2017";}
-      else if (name_year === "Ivan_2004") {featureType = "Hurricane_Ivan_2004";}
-      else if (name_year === "Katrina_2005") {featureType = "Hurricane_Katrina_2005";}
-      else if (name_year === "Rita_2005") {featureType = "Hurricane_Rita_2005";}
-      else if (name_year === "Sandy_2012") {featureType = "Hurricane_Sandy_2012";}
-      else {featureType = "Hurricane_Wilma_2005";}
-      // console.log(featureType);
+   // Harvey_2017
+   var hurricane3 = object.Harvey_2017
+   var line3 = hurricane3.Coordinates
+   // Ike_2008
+   var hurricane4 = object.Ike_2008
+   var line4 = hurricane4.Coordinates
+   // Irma_2017
+   var hurricane5 = object.Irma_2017
+   var line5 = hurricane5.Coordinates
+   // Ivan_2004
+   var hurricane6 = object.Ivan_2004
+   var line6 = hurricane6.Coordinates
+   // Katrina_2005
+   var hurricane7 = object.Katrina_2005
+   var line7 = hurricane7.Coordinates
+   // Rita_2005
+   var hurricane8 = object.Rita_2005
+   var line8 = hurricane8.Coordinates
+   // Sandy_2012
+   var hurricane9 = object.Sandy_2012
+   var line9 = hurricane9.Coordinates
+   // Wilma_2005
+   var hurricane10 = object.Wilma_2005
+   var line10 = hurricane10.Coordinates
 
 
-      // draw the data with custom colors and proportional circle radius
-      // console.log(object);
+   // Initialize an object containing lines for each layer group
+   const addLines = {
+      Hurricane_Andrew_1992: L.polyline(line1, {
+         color: "red"
+      }),
+      Hurricane_Charley_2004: L.polyline(line2, {
+         color: "red"
+      }),
+      Hurricane_Harvey_2017: L.polyline(line3, {
+         color: "red"
+      }),
+      Hurricane_Ike_2008: L.polyline(line4, {
+         color: "red"
+      }),
+      Hurricane_Irma_2017: L.polyline(line5, {
+         color: "red"
+      }),
+      Hurricane_Ivan_2004: L.polyline(line6, {
+         color: "red"
+      }),
+      Hurricane_Katrina_2005: L.polyline(line7, {
+         color: "red"
+      }),
+      Hurricane_Rita_2005: L.polyline(line8, {
+         color: "red"
+      }),
+      Hurricane_Sandy_2012: L.polyline(line9, {
+         color: "red"
+      }),
+      Hurricane_Wilma_2005: L.polyline(line10, {
+         color: "red"
+      })
 
-      // var hurricane = object.Katrina_2005;
-      // var line = hurricane.Coordinates;
+   }
 
-
-      // const newFeature = L.polyline(line, {
-      //    color: "red",
-      //    weight: 1
-      //    // color: getColor(sig),
-      //    // fillOpacity: 0.7,
-      //    // radius: radius
-      // });
-
-      // Add features to the layers according to their types
-      // newFeature.addTo(layers[featureType]);
-
-      // // newFeature.bindPopup(`<h3>${type}: ${place}</h3><hr>
-      // //   <h4>Time: ${date}</h4><hr>
-      // //   <h4>Magnitude: ${mag}</h4><hr>
-      // //   <h4>Significance: ${sig}</h4>`, {maxWidth: 560}) //
-      // // .addTo(myMap)
-   
-
-      
-   })
-   // console.log(data);
-   console.log(object);
-
-      // Create an initial map object
-      // const myMap = L.map("geomap").setView([25.07, -70.1], 4);
-
-      
-      // Add dropdown layer controls for all hurricanes
-
-// })
-   //   })
-
-
-
-
-
-
-
-   // // draw the data with custom colors and proportional circle radius
-   // var hurricane = object.Katrina_2005;
-   // console.log(hurricane);
-   // var line = hurricane.Coordinates;
-   
-   // const newFeature = L.polyline(line, {
-   //    color: "red",
-   //    weight: .5
-   //    // color: getColor(sig),
-   //    // fillOpacity: 0.7,
-   //    // radius: radius
-   // });
-
-   // // newFeature.addTo(layers[Hurricane_Katrina_2005]);
-
-   
-
-   // //// **************************** /////
-
-
-   // //  console.log(line)
-
-   //  // Create a polyline using the line coordinates and pass in some initial options
-   //  L.polyline(line, {
-   //    color: "red"
-   //  }).addTo(myMap);
-
-
+addLines.addTo(layers);
 
 }
 
@@ -340,59 +266,64 @@ clayChart();
 
 
 
-const amyChart = async() => {
+const amyChart = async () => {
    const data = await (await fetch("/cost_by_state")).json();
    // console.log(data);
-   
-   
-   
+
+
+
    // here below this line is the code for Amy
    var states = data.map(entry => entry.name)
    var costs = data.map(entry => parseInt(entry.total_damage))
    // console.log(states)
    // console.log(costs)
-   
+
    var chartData = [{
-     type: 'choropleth',
-     locationmode: 'USA-states',
-     locations: states,
-     z: costs,
-     text: states,
-     zmin: 0,
-     zmax: 100000,
-     colorscale: [
-         [0, '#e1e7e7'], [0.2, '#9a9f9f'],
-         [0.4, '#848888'], [0.6, '#6f7171'],
-         [0.8, '#5b5c5c'], [1, '#474747']
+      type: 'choropleth',
+      locationmode: 'USA-states',
+      locations: states,
+      z: costs,
+      text: states,
+      zmin: 0,
+      zmax: 100000,
+      colorscale: [
+         [0, '#e1e7e7'],
+         [0.2, '#9a9f9f'],
+         [0.4, '#848888'],
+         [0.6, '#6f7171'],
+         [0.8, '#5b5c5c'],
+         [1, '#474747']
          // [0.8, 'rgb(118,82,165)'], [1, 'rgb(84,39,143)']
-     ],
-     colorbar: {
+      ],
+      colorbar: {
          title: 'Millions USD',
          thickness: 20
-     },
-     marker: {
-         line:{
-             color: 'rgb(255,255,255)',
-             width: 2
+      },
+      marker: {
+         line: {
+            color: 'rgb(255,255,255)',
+            width: 2
          }
-     }
+      }
    }];
-   
-   
+
+
    var layout = {
-     title: 'Cumulative Normalized Hurricane Damages',
-     geo:{
+      title: 'Cumulative Normalized Hurricane Damages',
+      geo: {
          scope: 'usa',
          showlakes: true,
          lakecolor: 'rgb(255,255,255)'
-     }
+      }
    };
-   
-   Plotly.newPlot("costmap", chartData, layout, {showLink: false});
-   }
-   
-   
-   amyChart();
+
+   Plotly.newPlot("costmap", chartData, layout, {
+      showLink: false
+   });
+}
+
+
+amyChart();
 
 
 // // ************************************************************************************************************************************************
@@ -417,13 +348,13 @@ const amyChart = async() => {
 //    var lat_lon = data.map(entry => entry.lat_lon);
 //    var norm_damage_usd = data.map(entry => entry.norm_damage_usd);
 //    var damage_usd = data.map(entry => entry.damage_usd);
-   
+
 //    // console.log(damage_usd);
 
 //    // var costs = data.map(entry => parseInt(entry.total_damage))
 
 
-   
+
 //    // Create an initial map object
 //    const myTop10Map = L.map("top10").setView([25.07, -70.1], 4);
 
@@ -442,17 +373,17 @@ const amyChart = async() => {
 //       }).addTo(myTop10Map);
 
 
-    // // *************** EXAMPLE MAPPING ABLE_1950 *****************
-   //  var hurricane = object.Able_1950
-   //  var line = hurricane.Coordinates
-   //  console.log(line)
+// // *************** EXAMPLE MAPPING ABLE_1950 *****************
+//  var hurricane = object.Able_1950
+//  var line = hurricane.Coordinates
+//  console.log(line)
 
-    // // **********************************************************
+// // **********************************************************
 
-    // Create a polyline using the line coordinates and pass in some initial options
-   //  L.polyline(line, {
-   //    color: "red"
-   //  }).addTo(myMap);
+// Create a polyline using the line coordinates and pass in some initial options
+//  L.polyline(line, {
+//    color: "red"
+//  }).addTo(myMap);
 
 // }
 
@@ -722,7 +653,7 @@ const amyChart = async() => {
 //       // The first parameter are the coordinates of the center of the map
 //       // The second parameter is the zoom level
 //       var map2 = L.map('map').setView([29.712, -95.006], 8);
-      
+
 //       // {s}, {z}, {x} and {y} are placeholders for map tiles
 //       // {x} and {y} are the x/y of where you are on the map
 //       // {z} is the zoom level
@@ -737,14 +668,14 @@ const amyChart = async() => {
 //   buildLeaflet();
 
 // function buildCostMap() {
-  
+
 //   const map1 = L.map("myDiv", {
 //     center: [25.07, -70.1],
 //     zoom: 4
 //   })
 
 //   var mapboxAccessToken = API_KEY;
-  
+
 //   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
 //       id: 'mapbox/light-v9',
 //       tileSize: 512,
