@@ -239,6 +239,7 @@ const data = await (await fetch("/top10")).json();
       if (names_years.indexOf(name_year) > -1) {
          // console.log("IF");
          // console.log(name_year);
+         var name = entry.name;
          var point = [];
          hurdata = {};
          point.push(parseInt(entry.latitude));
@@ -281,6 +282,12 @@ const data = await (await fetch("/top10")).json();
 
          // Add features to the layers according to their types
          newFeature.addTo(layers[featureType]);
+
+         newFeature.bindPopup(`<h5>${entry.name}: ${entry.year}</h5><hr>
+         <p>Time: ${entry.max_wind}</p>
+         <p>Magnitude: ${entry.air_pressure}</p>`, {maxWidth: 560}) //
+         .addTo(myMap)
+
       }
       
       else {
@@ -329,31 +336,30 @@ const data = await (await fetch("/top10")).json();
             // Add features to the layers according to their types
             newFeature.addTo(layers[featureType]);
 
+            newFeature.bindPopup(`<h3>${entry.name}: ${entry.year}</h3><hr>
+            <h4>Time: ${entry.max_wind}</h4>
+            <h4>Magnitude: ${entry.air_pressure}</h4>`, {maxWidth: 560}) //
+            .addTo(myMap)
+
       }
-      // console.log(object, index);
-
-      // // assign feature type
-      // if (name_year === "Andrew_1992") {featureType = "Hurricane_Andrew_1992";}
-      // else if (name_year === "Charley_2004") {featureType = "Hurricane_Charley_2004";}
-      // else if (name_year === "Harvey_2017") {featureType = "Hurricane_Harvey_2017";}
-      // else if (name_year === "Ike_2008") {featureType = "Hurricane_Ike_2008";}
-      // else if (name_year === "Irma_2017") {featureType = "Hurricane_Irma_2017";}
-      // else if (name_year === "Ivan_2004") {featureType = "Hurricane_Ivan_2004";}
-      // else if (name_year === "Katrina_2005") {featureType = "Hurricane_Katrina_2005";}
-      // else if (name_year === "Rita_2005") {featureType = "Hurricane_Rita_2005";}
-      // else if (name_year === "Sandy_2012") {featureType = "Hurricane_Sandy_2012";}
-      // else {featureType = "Hurricane_Wilma_2005";}
-      // // console.log(featureType);
-
-      // var hurricane = object.Katrina_2005;
-      // var line 
-      // console.log()
-
-   
-
+      
    })
 
-
+   // Create a legend in the bottom right corner for color pallet of EQ significances
+   var legend = L.control({position: "bottomleft"});
+   legend.onAdd = function(myMap) {
+   var div = L.DomUtil.create('div', 'legend');
+   var labels = ["Andrew, 1992",  "Charley, 2004", "Harvey, 2017", "Ike, 2008", "Irma, 2017", "Ivan, 2004", "Katrina, 2005","Rita, 2005","Sandy, 2012","Wilma, 2005"];
+   var grades = ["Andrew_1992", "Charley_2004", "Harvey_2017", "Ike_2008", "Irma_2017","Ivan_2004","Katrina_2005","Rita_2005","Sandy_2012","Wilma_2005"];
+   div.innerHTML = '<div class="legend-title">EQ Significance</br><hr></div>';
+   for(var i = 0; i < grades.length; i++) {
+      div.innerHTML += "<i style='background:" + getColor(grades[i])
+      + "'>&nbsp;&nbsp;</i>" + labels[i] + '<br/>';
+   }
+   return div;
+}
+   // Add legend to map
+   legend.addTo(myMap);
 
 }
 
