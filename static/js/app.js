@@ -22,7 +22,7 @@ data.forEach(hurricane => {
 
 
   windspeed = hurricane.max_wind
-  cost = hurricane.norm_damage_usd
+  cost = hurricane.damage_usd
   costwind['x'] = cost
   costwind['y'] = windspeed
 
@@ -133,12 +133,12 @@ console.log(object)
       accessToken: API_KEY
       }).addTo(myMap);
 
-    // // *************** EXAMPLE MAPPING ABLE_1950 *****************
-    var hurricane = object
+   
+    var hurricane = object.Katrina_2005
     var line = hurricane.Coordinates
    //  console.log(line)
 
-    // // **********************************************************
+
 
     // Create a polyline using the line coordinates and pass in some initial options
     L.polyline(line, {
@@ -218,51 +218,51 @@ Plotly.newPlot("costmap", chartData, layout, {showLink: false});
 amyChart();
 
 
-// ************************************************************************************************************************************************
-// ************************************************************************************************************************************************
-// *************************************************                                    ***********************************************************
-// *************************************************            TOP 10 GEOMAP           ***********************************************************
-// *************************************************                                    ***********************************************************
-// ************************************************************************************************************************************************
-// ************************************************************************************************************************************************
+// // ************************************************************************************************************************************************
+// // ************************************************************************************************************************************************
+// // *************************************************                                    ***********************************************************
+// // *************************************************            TOP 10 GEOMAP           ***********************************************************
+// // *************************************************                                    ***********************************************************
+// // ************************************************************************************************************************************************
+// // ************************************************************************************************************************************************
 
-const top10 = async() => {
-   // here below this line is the code for Neil
-   const data = await (await fetch("/top10")).json();
-   console.log(data);
-   var lat_lon = data.map(entry => entry.lat_lon);
-   var name = data.map(entry => entry.name);
-   var name_year = data.map(entry => entry.name_year);
-   var hurricane_id = data.map(entry => parseInt(entry.hurricane_id));
-   var max_wind = data.map(entry => parseInt(entry.max_wind));
-   var air_pressure = data.map(entry => parseInt(entry.air_pressure));
-   var time = data.map(entry => parseInt(entry.time));
-   var lat_lon = data.map(entry => entry.lat_lon);
-   var norm_damage_usd = data.map(entry => entry.norm_damage_usd);
-   var damage_usd = data.map(entry => entry.damage_usd);
+// const top10 = async() => {
+//    // here below this line is the code for Neil
+//    const data = await (await fetch("/top10")).json();
+//    console.log(data);
+//    var lat_lon = data.map(entry => entry.lat_lon);
+//    var name = data.map(entry => entry.name);
+//    var name_year = data.map(entry => entry.name_year);
+//    var hurricane_id = data.map(entry => parseInt(entry.hurricane_id));
+//    var max_wind = data.map(entry => parseInt(entry.max_wind));
+//    var air_pressure = data.map(entry => parseInt(entry.air_pressure));
+//    var time = data.map(entry => parseInt(entry.time));
+//    var lat_lon = data.map(entry => entry.lat_lon);
+//    var norm_damage_usd = data.map(entry => entry.norm_damage_usd);
+//    var damage_usd = data.map(entry => entry.damage_usd);
    
-   // console.log(damage_usd);
+//    // console.log(damage_usd);
 
-   // var costs = data.map(entry => parseInt(entry.total_damage))
+//    // var costs = data.map(entry => parseInt(entry.total_damage))
 
 
    
-   // Create an initial map object
-   const myTop10Map = L.map("top10").setView([25.07, -70.1], 4);
+//    // Create an initial map object
+//    const myTop10Map = L.map("top10").setView([25.07, -70.1], 4);
 
-   //  // Add a tile layer to map
-   //  const dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-   //    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-   //    id: "dark-v10",
-   //    accessToken: API_KEY
-   //  }).addTo(myMap);
+//    //  // Add a tile layer to map
+//    //  const dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+//    //    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+//    //    id: "dark-v10",
+//    //    accessToken: API_KEY
+//    //  }).addTo(myMap);
 
-   const light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-      id: "light-v10",
-      accessToken: API_KEY
-      }).addTo(myTop10Map);
+//    const light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+//       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+//       maxZoom: 18,
+//       id: "light-v10",
+//       accessToken: API_KEY
+//       }).addTo(myTop10Map);
 
 
     // // *************** EXAMPLE MAPPING ABLE_1950 *****************
@@ -277,9 +277,9 @@ const top10 = async() => {
    //    color: "red"
    //  }).addTo(myMap);
 
-}
+// }
 
-top10();
+// top10();
 
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
