@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     <title>Atlantic Hurricanes</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
@@ -69,19 +69,12 @@
             </div>
         </div>
         
-        
-        
-        <div>
-            <div>
-                <div class = "col-md-12">
-                    <div id = "geomap"></div>
-                </div>
-            </div>
+        <div class = "col-md-12">
+            <div id = "geomap"></div>
         </div>
-    
     </div>
 
-    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+    <!-- <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Atlantic Hurricanes</a>
         <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -96,11 +89,8 @@
         <li class="nav-item">
             <a class="nav-link" href="https://github.com/IrinaUX/project2_heroku">GitHub</a>
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-        </li> -->
         </ul>
-    </nav>
+    </nav> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
