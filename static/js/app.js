@@ -35,12 +35,12 @@ data.forEach(hurricane => {
 // console.log(costwinds);
 var ctx = document.getElementById('myChart').getContext('2d');
 var scatterChart = new Chart(ctx, {
-   type: 'scatter',
+   type: 'bubble',
    data: {
       labels: hurricanes,
       datasets: [{
-         label: 'Hurricane',
-         data: costwinds
+         label: 'Top 50 Costliest Hurricanes',
+         data: costwinds  
       }]
    },
    options: {
@@ -164,58 +164,58 @@ clayChart();
 
 
 const amyChart = async() => {
-const data = await (await fetch("/cost_by_state")).json();
-// console.log(data);
-
-
-
-// here below this line is the code for Amy
-var states = data.map(entry => entry.name)
-var costs = data.map(entry => parseInt(entry.total_damage))
-// console.log(states)
-// console.log(costs)
-
-var chartData = [{
-  type: 'choropleth',
-  locationmode: 'USA-states',
-  locations: states,
-  z: costs,
-  text: states,
-  zmin: 0,
-  zmax: 100000,
-  colorscale: [
-      [0, 'rgb(154, 200, 158)'], [0.2, 'rgb(188,189,220)'],
-      [0.4, 'rgb(158,154,200)'], [0.6, 'rgb(84,39,143)'],
-      [0.8, 'rgb(84,39,143)'], [1, 'rgb(234,60,83)']
-      // [0.8, 'rgb(118,82,165)'], [1, 'rgb(84,39,143)']
-  ],
-  colorbar: {
-      title: 'Millions USD',
-      thickness: 20
-  },
-  marker: {
-      line:{
-          color: 'rgb(255,255,255)',
-          width: 2
-      }
-  }
-}];
-
-
-var layout = {
-  title: 'Cumulative Normalized Hurricane Damages',
-  geo:{
-      scope: 'usa',
-      showlakes: true,
-      lakecolor: 'rgb(255,255,255)'
-  }
-};
-
-Plotly.newPlot("costmap", chartData, layout, {showLink: false});
-}
-
-
-amyChart();
+   const data = await (await fetch("/cost_by_state")).json();
+   // console.log(data);
+   
+   
+   
+   // here below this line is the code for Amy
+   var states = data.map(entry => entry.name)
+   var costs = data.map(entry => parseInt(entry.total_damage))
+   // console.log(states)
+   // console.log(costs)
+   
+   var chartData = [{
+     type: 'choropleth',
+     locationmode: 'USA-states',
+     locations: states,
+     z: costs,
+     text: states,
+     zmin: 0,
+     zmax: 100000,
+     colorscale: [
+         [0, '#e1e7e7'], [0.2, '#9a9f9f'],
+         [0.4, '#848888'], [0.6, '#6f7171'],
+         [0.8, '#5b5c5c'], [1, '#474747']
+         // [0.8, 'rgb(118,82,165)'], [1, 'rgb(84,39,143)']
+     ],
+     colorbar: {
+         title: 'Millions USD',
+         thickness: 20
+     },
+     marker: {
+         line:{
+             color: 'rgb(255,255,255)',
+             width: 2
+         }
+     }
+   }];
+   
+   
+   var layout = {
+     title: 'Cumulative Normalized Hurricane Damages',
+     geo:{
+         scope: 'usa',
+         showlakes: true,
+         lakecolor: 'rgb(255,255,255)'
+     }
+   };
+   
+   Plotly.newPlot("costmap", chartData, layout, {showLink: false});
+   }
+   
+   
+   amyChart();
 
 
 // // ************************************************************************************************************************************************
