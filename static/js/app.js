@@ -32,7 +32,7 @@ data.forEach(hurricane => {
 })
 
 
-console.log(costwinds);
+// console.log(costwinds);
 var ctx = document.getElementById('myChart').getContext('2d');
 var scatterChart = new Chart(ctx, {
    type: 'scatter',
@@ -122,7 +122,7 @@ data.forEach((entry, index) => {
     // // *************** EXAMPLE MAPPING ABLE_1950 *****************
     var hurricane = object.Able_1950
     var line = hurricane.Coordinates
-    console.log(line)
+   //  console.log(line)
 
     // // **********************************************************
 
@@ -207,53 +207,34 @@ amyChart();
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
 // *************************************************                                    ***********************************************************
-// *************************************************            TOP 50 GEOMAP           ***********************************************************
+// *************************************************            TOP 10 GEOMAP           ***********************************************************
 // *************************************************                                    ***********************************************************
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
 
-
-
-
 const top10 = async() => {
    // here below this line is the code for Neil
    const data = await (await fetch("/top10")).json();
-   console.log(data);
+   // console.log(data);
+   var lat_lon = data.map(entry => entry.lat_lon);
+   var name = data.map(entry => entry.name);
+   var name_year = data.map(entry => entry.name_year);
+   var hurricane_id = data.map(entry => parseInt(entry.hurricane_id));
+   var max_wind = data.map(entry => parseInt(entry.max_wind));
+   var air_pressure = data.map(entry => parseInt(entry.air_pressure));
+   var time = data.map(entry => parseInt(entry.time));
+   var lat_lon = data.map(entry => entry.lat_lon);
+   var norm_damage_usd = data.map(entry => entry.norm_damage_usd);
+   var damage_usd = data.map(entry => entry.damage_usd);
+   
+   console.log(damage_usd);
 
-   // here below this line is the code for Clay
-let latlong = [];
-let names_years = [];
-let name_year;
-let object = {};
-let hurdata = {};
-let windspeed = [];
-
-data.forEach((entry, index) => {
-   name_year = `${entry.name}_${entry.year}`;
-   if (names_years.indexOf(name_year) > -1) {
-      var point = []
-      hurdata = {}
-      point.push(parseInt(entry.latitude))
-      point.push(parseInt(entry.longitude))
-      windspeed.push(parseInt(entry.max_wind))
-      hurdata['Coordinates'] = latlong;
-      hurdata['Wind Speed'] = windspeed;
-      latlong.push(point)
-      object[name_year] = hurdata;
-   }
-  //console.log(latlong);
-   else {
-      latlong = []
-      windspeed = []
-      hurdata = {}
-      new_name_year = `${entry.name}_${entry.year}`;
-      names_years.push(new_name_year);
-   }
-})
+   // var costs = data.map(entry => parseInt(entry.total_damage))
 
 
-    // Create an initial map object
-    const myMap = L.map("top50cost").setView([25.07, -70.1], 4);
+   
+   // Create an initial map object
+   const myMap = L.map("top10").setView([25.07, -70.1], 4);
 
    //  // Add a tile layer to map
    //  const dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -270,20 +251,17 @@ data.forEach((entry, index) => {
       }).addTo(myMap);
 
     // // *************** EXAMPLE MAPPING ABLE_1950 *****************
-    var hurricane = object.Able_1950
-    var line = hurricane.Coordinates
-    console.log(line)
+   //  var hurricane = object.Able_1950
+   //  var line = hurricane.Coordinates
+   //  console.log(line)
 
     // // **********************************************************
 
     // Create a polyline using the line coordinates and pass in some initial options
-    L.polyline(line, {
-      color: "red"
-    }).addTo(myMap);
+   //  L.polyline(line, {
+   //    color: "red"
+   //  }).addTo(myMap);
 
-
-
-   
 }
 
 top10();

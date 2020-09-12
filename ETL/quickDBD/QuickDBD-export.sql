@@ -89,5 +89,6 @@ CREATE TABLE "top10" (
     "longitude" VARCHAR(255)   NOT NULL,
     "norm_damage_usd" INT,
 	"damage_usd" INT,
-	"name_year" VARCHAR(255)   NOT NULL
+	"name_year" VARCHAR(255)   NOT NULL,
+	"lat_long" VARCHAR(20) NOT NULL
 );
