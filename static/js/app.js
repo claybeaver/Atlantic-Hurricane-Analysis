@@ -11,66 +11,67 @@
 
 
 const neilChart = async() => {
-  // here below this line is the code for Neil
-const data = await (await fetch("/costwind")).json();
-var costwinds = []
-var hurricanes = data.map(hurricane => hurricane.name_year)
-data.forEach(hurricane => {
-  var windspeed = 0;
-  var cost = 0;
-  var costwind = {}
-
-
-  windspeed = hurricane.max_wind
-  cost = hurricane.damage_usd
-  costwind['x'] = cost
-  costwind['y'] = windspeed
-
-  costwinds.push(costwind)
-
-  
-})
-
-
-// console.log(costwinds);
-var ctx = document.getElementById('myChart').getContext('2d');
-var scatterChart = new Chart(ctx, {
-   type: 'bubble',
-   data: {
-      labels: hurricanes,
-      datasets: [{
-         label: 'Top 50 Costliest Hurricanes',
-         data: costwinds  
-      }]
-   },
-   options: {
-      scales: {
-         xAxes: [{
-            scaleLabel: {
-               display: true,
-               labelString: 'Damage Cost in USD (Billions)'
-            }
-         }],
-         yAxes: [{
-            scaleLabel: {
-               display: true,
-               labelString: 'Maximum Wind Speed (MPH)'
-            }
-         }]
-      },
-      tooltips: {
-         callbacks: {
-            label: function(tooltipItem, data) {
-               var label = data.labels[tooltipItem.index];
-               return label + ': (' + tooltipItem.xLabel + ' Billion USD, ' + tooltipItem.yLabel + ' MPH)';
-            }
-         }
-      }
-   }
-});
-
-}
-neilChart();
+   // here below this line is the code for Neil
+ const data = await (await fetch("/costwind")).json();
+ var costwinds = []
+ var hurricanes = data.map(hurricane => hurricane.name_year)
+ data.forEach(hurricane => {
+   var windspeed = 0;
+   var cost = 0;
+   var costwind = {}
+ 
+ 
+   windspeed = hurricane.max_wind
+   cost = hurricane.damage_usd
+   costwind['x'] = cost
+   costwind['y'] = windspeed
+   costwind['r'] = cost
+   costwinds.push(costwind)
+   colors = ['red','green','yellow']
+ 
+   
+ })
+ 
+ 
+ // console.log(costwinds);
+ var ctx = document.getElementById('myChart').getContext('2d');
+ var scatterChart = new Chart(ctx, {
+    type: 'bubble',
+    data: {
+       labels: hurricanes,
+       datasets: [{
+          label: 'Top 50 Costliest Hurricanes',
+          data: costwinds  
+       }]
+    },
+    options: {
+       scales: {
+          xAxes: [{
+             scaleLabel: {
+                display: true,
+                labelString: 'Damage Cost in USD (Billions)'
+             }
+          }],
+          yAxes: [{
+             scaleLabel: {
+                display: true,
+                labelString: 'Maximum Wind Speed (MPH)'
+             }
+          }]
+       },
+       tooltips: {
+          callbacks: {
+             label: function(tooltipItem, data) {
+                var label = data.labels[tooltipItem.index];
+                return label + ': (' + tooltipItem.xLabel + ' Billion USD, ' + tooltipItem.yLabel + ' MPH)';
+             }
+          }
+       }
+    }
+ });
+ 
+ }
+ neilChart();
 
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
