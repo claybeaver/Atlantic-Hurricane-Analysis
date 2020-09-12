@@ -133,13 +133,20 @@ console.log(object)
       id: "light-v10",
       accessToken: API_KEY
       }).addTo(myMap);
-
    
-    var hurricane = object.Katrina_2005
-    var line = hurricane.Coordinates
+   //// ****** Irina'as code ******* /////
+   
+   let featureType;
+   let type = feature.properties.type;
+   let place = feature.properties.place;
+
+
+   //// **************************** /////
+
+
+   var hurricane = object.Katrina_2005
+   var line = hurricane.Coordinates
    //  console.log(line)
-
-
 
     // Create a polyline using the line coordinates and pass in some initial options
     L.polyline(line, {
