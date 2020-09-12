@@ -194,133 +194,148 @@ const data = await (await fetch("/top10")).json();
    
    L.control.layers(baseMaps, overlays).addTo(myMap);
 
+
+   // Add function to color each hurricane
+
+//    var colors = ['rgba(0, 0, 0)','rgba(75, 93, 156)','rgba(255, 0, 0)','rgba(0, 161, 0)','rgba(0, 0, 255)',
+// 'rgb(0, 165, 255)','rgba(0, 255, 0)','rgba(238, 130, 238)','rgba(255, 165, 0)','rgba(102, 102, 102)']
+
+
+   function getColor(name_year) {
+      return name_year === "Andrew_1992" ? 'rgb(0, 0, 0)' :
+         name_year === "Charley_2004"  ? 'rgb(75, 93, 156)' :
+         name_year === "Harvey_2017"  ? 'rgb(255, 0, 0)' :
+         name_year === "Ike_2008"  ? 'rgb(0, 161, 0)' :
+         name_year === "Irma_2017"  ? 'rgb(0, 0, 255)' :
+         name_year === "Ivan_2004"  ? 'rgb(0, 165, 255)' :
+         name_year === "Katrina_2005"  ? 'rgb(0, 255, 0)' :
+         name_year === "Rita_2005"  ? 'rgb(238, 130, 238)' :
+         name_year === "Sandy_2012"  ? 'rgb(255, 165, 0)' :
+                        'rgb(102, 102, 102)';
+    }
+
+
    let featureType;
 
    let latlong = [];
    let names_years = []; //[]
    let name_year;
-   let object = {};
-   // let hurdata = {};
+   let object = {} // {}
+   let hurdata = {};
    let windspeed = [];
 
    data.forEach((entry, index) => {
 
-      name_year = `${entry.name}_${entry.year}`;
-      
+      name_year = entry.name_year;
+      // console.log(entry);
       if (names_years.indexOf(name_year) > -1) {
-         var point = []
-         hurdata = {}
-         // console.log(hurdata);
-         latitude = parseInt(entry.latitude);
-         longitude = parseInt(entry.longitude);
-         point.push(latitude);
-         point.push(longitude);
+         console.log("IF");
+         console.log(name_year);
+         var point = [];
+         hurdata = {};
+         point.push(parseInt(entry.latitude));
+         point.push(parseInt(entry.longitude));
          latlong.push(point);
-         console.log()
          windspeed.push(parseInt(entry.max_wind))
          hurdata['Coordinates'] = latlong;
          hurdata['Wind Speed'] = windspeed;
          object[name_year] = hurdata;
+         console.log(latlong);
+         // assign feature type
+         if (name_year === "Andrew_1992") {featureType = "Hurricane_Andrew_1992";}
+         else if (name_year === "Charley_2004") {featureType = "Hurricane_Charley_2004";}
+         else if (name_year === "Harvey_2017") {featureType = "Hurricane_Harvey_2017";}
+         else if (name_year === "Ike_2008") {featureType = "Hurricane_Ike_2008";}
+         else if (name_year === "Irma_2017") {featureType = "Hurricane_Irma_2017";}
+         else if (name_year === "Ivan_2004") {featureType = "Hurricane_Ivan_2004";}
+         else if (name_year === "Katrina_2005") {featureType = "Hurricane_Katrina_2005";}
+         else if (name_year === "Rita_2005") {featureType = "Hurricane_Rita_2005";}
+         else if (name_year === "Sandy_2012") {featureType = "Hurricane_Sandy_2012";}
+         else {featureType = "Hurricane_Wilma_2005";}
+         
+         // var hurricane = object.name_year;
+         // var line = hurricane.Coordinates
+
+         console.log(hurdata.Coordinates);
+
+         const newFeature = L.polyline(hurdata.Coordinates, {
+         color: getColor(name_year),
+         weight: 1
+            // color: getColor(sig),
+            // fillOpacity: 0.7,
+            // radius: radius
+         });
+
+         // Add features to the layers according to their types
+         newFeature.addTo(layers[featureType]);
       }
+      
       else {
+         console.log("ELSE");
+
          latlong = []
          windspeed = []
          hurdata = {}
-         new_name_year = `${entry.name}_${entry.year}`;
+         new_name_year = entry.name_year;
          names_years.push(new_name_year);
-      }
-      
-      
-      // console.log(names_years);
+
+         var point = [];
+         hurdata = {};
+         point.push(parseInt(entry.latitude));
+         point.push(parseInt(entry.longitude));
+         latlong.push(point);
+         windspeed.push(parseInt(entry.max_wind))
+         hurdata['Coordinates'] = latlong;
+         hurdata['Wind Speed'] = windspeed;
+         object[name_year] = hurdata;
+
+
+         // assign feature type
+         if (name_year === "Andrew_1992") {featureType = "Hurricane_Andrew_1992";}
+         else if (name_year === "Charley_2004") {featureType = "Hurricane_Charley_2004";}
+         else if (name_year === "Harvey_2017") {featureType = "Hurricane_Harvey_2017";}
+         else if (name_year === "Ike_2008") {featureType = "Hurricane_Ike_2008";}
+         else if (name_year === "Irma_2017") {featureType = "Hurricane_Irma_2017";}
+         else if (name_year === "Ivan_2004") {featureType = "Hurricane_Ivan_2004";}
+         else if (name_year === "Katrina_2005") {featureType = "Hurricane_Katrina_2005";}
+         else if (name_year === "Rita_2005") {featureType = "Hurricane_Rita_2005";}
+         else if (name_year === "Sandy_2012") {featureType = "Hurricane_Sandy_2012";}
+         else {featureType = "Hurricane_Wilma_2005";}
          
-      //// ****** Irina'as code ******* /////
-      // Add control for layers
+         const newFeature = L.polyline(hurdata.Coordinates, {
+            color: getColor(name_year),
+            weight: 1
+               // color: getColor(sig),
+               // fillOpacity: 0.7,
+               // radius: radius
+            });
+   
+            // Add features to the layers according to their types
+            newFeature.addTo(layers[featureType]);
 
-      // assign feature type
-      if (name_year === "Andrew_1992") {featureType = "Hurricane_Andrew_1992";}
-      else if (name_year === "Charley_2004") {featureType = "Hurricane_Charley_2004";}
-      else if (name_year === "Harvey_2017") {featureType = "Hurricane_Harvey_2017";}
-      else if (name_year === "Ike_2008") {featureType = "Hurricane_Ike_2008";}
-      else if (name_year === "Irma_2017") {featureType = "Hurricane_Irma_2017";}
-      else if (name_year === "Ivan_2004") {featureType = "Hurricane_Ivan_2004";}
-      else if (name_year === "Katrina_2005") {featureType = "Hurricane_Katrina_2005";}
-      else if (name_year === "Rita_2005") {featureType = "Hurricane_Rita_2005";}
-      else if (name_year === "Sandy_2012") {featureType = "Hurricane_Sandy_2012";}
-      else {featureType = "Hurricane_Wilma_2005";}
-      // console.log(featureType);
+      }
+      // console.log(object, index);
 
-
-      // draw the data with custom colors and proportional circle radius
-      // console.log(object);
+      // // assign feature type
+      // if (name_year === "Andrew_1992") {featureType = "Hurricane_Andrew_1992";}
+      // else if (name_year === "Charley_2004") {featureType = "Hurricane_Charley_2004";}
+      // else if (name_year === "Harvey_2017") {featureType = "Hurricane_Harvey_2017";}
+      // else if (name_year === "Ike_2008") {featureType = "Hurricane_Ike_2008";}
+      // else if (name_year === "Irma_2017") {featureType = "Hurricane_Irma_2017";}
+      // else if (name_year === "Ivan_2004") {featureType = "Hurricane_Ivan_2004";}
+      // else if (name_year === "Katrina_2005") {featureType = "Hurricane_Katrina_2005";}
+      // else if (name_year === "Rita_2005") {featureType = "Hurricane_Rita_2005";}
+      // else if (name_year === "Sandy_2012") {featureType = "Hurricane_Sandy_2012";}
+      // else {featureType = "Hurricane_Wilma_2005";}
+      // // console.log(featureType);
 
       // var hurricane = object.Katrina_2005;
-      // var line = hurricane.Coordinates;
+      // var line 
+      console.log()
 
-
-      // const newFeature = L.polyline(line, {
-      //    color: "red",
-      //    weight: 1
-      //    // color: getColor(sig),
-      //    // fillOpacity: 0.7,
-      //    // radius: radius
-      // });
-
-      // Add features to the layers according to their types
-      // newFeature.addTo(layers[featureType]);
-
-      // // newFeature.bindPopup(`<h3>${type}: ${place}</h3><hr>
-      // //   <h4>Time: ${date}</h4><hr>
-      // //   <h4>Magnitude: ${mag}</h4><hr>
-      // //   <h4>Significance: ${sig}</h4>`, {maxWidth: 560}) //
-      // // .addTo(myMap)
    
 
-      
    })
-   // console.log(data);
-   console.log(object);
-
-      // Create an initial map object
-      // const myMap = L.map("geomap").setView([25.07, -70.1], 4);
-
-      
-      // Add dropdown layer controls for all hurricanes
-
-// })
-   //   })
-
-
-
-
-
-
-
-   // // draw the data with custom colors and proportional circle radius
-   // var hurricane = object.Katrina_2005;
-   // console.log(hurricane);
-   // var line = hurricane.Coordinates;
-   
-   // const newFeature = L.polyline(line, {
-   //    color: "red",
-   //    weight: .5
-   //    // color: getColor(sig),
-   //    // fillOpacity: 0.7,
-   //    // radius: radius
-   // });
-
-   // // newFeature.addTo(layers[Hurricane_Katrina_2005]);
-
-   
-
-   // //// **************************** /////
-
-
-   // //  console.log(line)
-
-   //  // Create a polyline using the line coordinates and pass in some initial options
-   //  L.polyline(line, {
-   //    color: "red"
-   //  }).addTo(myMap);
 
 
 
