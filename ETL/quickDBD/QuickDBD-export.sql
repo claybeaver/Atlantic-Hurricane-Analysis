@@ -77,17 +77,17 @@ CREATE TABLE "cost_wind" (
     "name_year" VARCHAR(255)   NOT NULL
 );
 
-CREATE TABLE "top50cost" (
+CREATE TABLE "top10" (
     "name" VARCHAR(255)   NOT NULL,
-	"name_year" VARCHAR(255)   NOT NULL,
+	"year" INT   NOT NULL,
+    "hurricane_id" INT   NOT NULL,
+	"time" INT   NOT NULL,
     "status" VARCHAR(25)   NOT NULL,
-    "latitude" VARCHAR(255)   NOT NULL,
-    "longitude" VARCHAR(255)   NOT NULL,
     "max_wind" INT   NOT NULL,
     "air_pressure" INT   NOT NULL,
-    "year" INT   NOT NULL,
-    "hurricane_id" INT   NOT NULL,
-	"norm_damage_usd" INT,
-	"damage_usd" INT
+    "latitude" VARCHAR(255)   NOT NULL,
+    "longitude" VARCHAR(255)   NOT NULL,
+    "norm_damage_usd" INT,
+	"damage_usd" INT,
+	"name_year" VARCHAR(255)   NOT NULL
 );
-
