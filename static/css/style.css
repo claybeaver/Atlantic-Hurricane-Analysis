@@ -27,6 +27,11 @@ html {
   height: 600px;
 }
 
+#geomap2,
+html {
+  height: 600px;
+}
+
 #top10,
 html {
   height: 600px;
