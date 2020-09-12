@@ -12,37 +12,73 @@
 
 const neilChart = async() => {
    // here below this line is the code for Neil
- const data = await (await fetch("/costwind")).json();
- var costwinds = []
- var hurricanes = data.map(hurricane => hurricane.name_year)
- data.forEach(hurricane => {
-   var windspeed = 0;
-   var cost = 0;
-   var costwind = {}
+ const datas = await (await fetch("/top10")).json();
+ 
+ var hurricanes = datas.map(hurricane => hurricane.name_year)
  
  
-   windspeed = hurricane.max_wind
-   cost = hurricane.damage_usd
-   costwind['x'] = cost
-   costwind['y'] = windspeed
-   costwind['r'] = cost
-   costwinds.push(costwind)
-   colors = ['red','green','yellow']
+ let names_years = ['Andrew_1992'];
+ let name_year;
+ let hurdata = {};
+ let cost = 0;
+ let windSpeeds = []
+ let hurData2 = []
+ var colors = ['rgba(0, 0, 0,.5)','rgba(75, 93, 156,.5)','rgba(255, 0, 0,.5)','rgba(0, 161, 0,.5)','rgba(0, 0, 255,.5)',
+ 'rgb(0, 165, 255,.5)','rgba(0, 255, 0,.5)','rgba(238, 130, 238,.5)','rgba(255, 165, 0,.5)','rgba(102, 102, 102,.5)']
  
+ datas.forEach(entry => {
+    name_year = entry.name_year
+    if (names_years.indexOf(name_year) > -1) {
+       cost = entry.damage_usd
+       windSpeeds.push(parseInt(entry.max_wind))
+       hurdata['y'] = d3.max(windSpeeds);
+       hurdata['x'] = cost;
+       hurdata['r'] = cost/2;
+       
+    }
+ 
+    else {
+       console.log(hurdata)
+       hurData2.push(hurdata)
+       cost = 0;
+       windSpeeds = []
+       hurdata = {}
+       new_name_year = `${entry.name}_${entry.year}`;
+       names_years.push(new_name_year);
+    }
+ 
+    
    
  })
+ hurData2.push(hurdata)
+ console.log(hurData2);
+
  
+ var datasetz = []
+ var dataset = {}
+ console.log(names_years[0])
+ console.log(colors[0])
+ console.log(hurData2[0])
+ for (var i=0; i<names_years.length; i++) {
+    dataset = []
+    dataset['label'] = names_years[i]
+    dataset['backgroundColor'] = colors[i]
+    dataset['borderColor'] = colors[i]
+    dataset['data'] = [hurData2[i]]
+    datasetz.push(dataset)
+ }
  
- // console.log(costwinds);
+ console.log(datasetz[0])
+ console.log(names_years.length)
+ console.log(hurData2[0])
+ 
  var ctx = document.getElementById('myChart').getContext('2d');
  var scatterChart = new Chart(ctx, {
     type: 'bubble',
     data: {
-       labels: hurricanes,
-       datasets: [{
-          label: 'Top 50 Costliest Hurricanes',
-          data: costwinds  
-       }]
+       labels: names_years,
+       datasets: datasetz
+
     },
     options: {
        scales: {
@@ -63,7 +99,7 @@ const neilChart = async() => {
           callbacks: {
              label: function(tooltipItem, data) {
                 var label = data.labels[tooltipItem.index];
-                return label + ': (' + tooltipItem.xLabel + ' Billion USD, ' + tooltipItem.yLabel + ' MPH)';
+                return  tooltipItem.xLabel + ' Billion USD, ' + tooltipItem.yLabel + ' MPH';
              }
           }
        }
