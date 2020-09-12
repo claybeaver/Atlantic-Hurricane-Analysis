@@ -82,6 +82,7 @@ CREATE TABLE "top10" (
 	"year" INT   NOT NULL,
     "hurricane_id" INT   NOT NULL,
 	"time" INT   NOT NULL,
+    "date" INT   NOT NULL,
     "status" VARCHAR(25)   NOT NULL,
     "max_wind" INT   NOT NULL,
     "air_pressure" INT   NOT NULL,
@@ -90,5 +91,5 @@ CREATE TABLE "top10" (
     "norm_damage_usd" INT,
 	"damage_usd" INT,
 	"name_year" VARCHAR(255)   NOT NULL,
-	"lat_long" VARCHAR(20) NOT NULL
+	"lat_lon" VARCHAR(20) NOT NULL
 );

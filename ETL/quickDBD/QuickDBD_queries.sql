@@ -14,4 +14,4 @@ drop table hurricanes;
 drop table master;
 drop table maxwinds;
 drop table cost_wind;
-drop table top50cost;
+drop table top10;

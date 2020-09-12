@@ -67,7 +67,7 @@ neilChart();
 // ************************************************************************************************************************************************
 
 const clayChart = async() => {
-const data = await (await fetch("/jsondata")).json();
+const data = await (await fetch("/top10")).json();
 // console.log(data);
 
 // here below this line is the code for Clay
@@ -227,7 +227,7 @@ const top10 = async() => {
    var norm_damage_usd = data.map(entry => entry.norm_damage_usd);
    var damage_usd = data.map(entry => entry.damage_usd);
    
-   console.log(damage_usd);
+   // console.log(damage_usd);
 
    // var costs = data.map(entry => parseInt(entry.total_damage))
 
