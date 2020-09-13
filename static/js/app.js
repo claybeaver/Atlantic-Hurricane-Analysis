@@ -335,11 +335,14 @@ const data = await (await fetch("/top10")).json();
    
             // Add features to the layers according to their types
             newFeature.addTo(layers[featureType]);
-
+            console.log(entry.damage_usd);
             newFeature.bindPopup(`<h3>${entry.name}: ${entry.year}</h3><hr>
             <h4>Time: ${entry.max_wind}</h4>
-            <h4>Magnitude: ${entry.air_pressure}</h4>`, {maxWidth: 560}) //
+            <h4>Air pressure: ${entry.air_pressure}</h4>`, {maxWidth: 560}) //
             .addTo(myMap)
+            // 
+            // <h4>Cost: ${entry.damage_usd}</h4>
+            
 
       }
       
