@@ -30,11 +30,6 @@ html {
   height: 600px;
 }
 
-#geomap2,
-html {
-  height: 800px;
-}
-
 #top10,
 html {
   height: 600px;
@@ -6627,9 +6622,9 @@ button.bg-black:focus {
     display: table-cell !important;
   }
 
-  .d-md-flex {
+  /* .d-md-flex {
     display: flex !important;
-  }
+  } */
 
   .d-md-inline-flex {
     display: inline-flex !important;
@@ -10316,7 +10311,7 @@ body {
   width: 100%;
   height: auto;
   min-height: 35rem;
-  /* padding: 15rem 0; */
+  padding: 15rem 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000000 100%), url("https://lisagawlas.files.wordpress.com/2014/05/consciousness.jpg");
   background-position: center;
   background-repeat: no-repeat;
