@@ -22,6 +22,9 @@ html {
   height: 600px;
 }
 
+#costmap {
+  height: 600px;
+}
 #geomap,
 html {
   height: 600px;
@@ -58,7 +61,7 @@ html {
 }
 
 .legend{
-  background: palegoldenrod;
+  background: white;
   width: 150px;
   border-radius: 5px;
   padding-left: 5px;
@@ -10314,7 +10317,7 @@ body {
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000000 100%), url("../assets/img/bg-masthead.jpg");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000000 100%), url("https://lisagawlas.files.wordpress.com/2014/05/consciousness.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;

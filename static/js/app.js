@@ -34,7 +34,6 @@ const buildScatterPlot = async () => {
          hurdata['r'] = cost / 2;
 
       } else {
-         //  console.log(hurdata)
          hurData2.push(hurdata)
          cost = 0;
          windSpeeds = []
@@ -47,14 +46,9 @@ const buildScatterPlot = async () => {
 
    })
    hurData2.push(hurdata)
-   //  console.log(hurData2);
-
-
+   
    var datasetz = []
    var dataset = {}
-   //  console.log(names_years[0])
-   //  console.log(colors[0])
-   //  console.log(hurData2[0])
    for (var i = 0; i < names_years.length; i++) {
       dataset = []
       dataset['label'] = names_years[i]
@@ -64,17 +58,12 @@ const buildScatterPlot = async () => {
       datasetz.push(dataset)
    }
 
-   //  console.log(datasetz[0])
-   //  console.log(names_years.length)
-   //  console.log(hurData2[0])
-
    var ctx = document.getElementById('myChart').getContext('2d');
    var scatterChart = new Chart(ctx, {
       type: 'bubble',
       data: {
          labels: names_years,
          datasets: datasetz
-
       },
       options: {
          scales: {
@@ -101,8 +90,8 @@ const buildScatterPlot = async () => {
          }
       }
    });
-
 }
+
 buildScatterPlot();
 
 // ************************************************************************************************************************************************
@@ -115,8 +104,7 @@ buildScatterPlot();
 
 const buildGeomap = async () => {
    const data = await (await fetch("/top10")).json();
-   // console.log(data);
-
+   
    // Define streetmap and darkmap layers
    const streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
       attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -186,7 +174,6 @@ const buildGeomap = async () => {
       "Wilma_2005": layers.Hurricane_Wilma_2005
    };
 
-
    streetmap.addTo(myMap)
 
    // Only one base layer can be shown at a time
@@ -221,9 +208,7 @@ const buildGeomap = async () => {
    }
 
 
-
    let featureType;
-
    let latlong = [];
    let names_years = []; //[]
    let name_year;
@@ -234,10 +219,7 @@ const buildGeomap = async () => {
    data.forEach((entry, index) => {
 
       name_year = entry.name_year;
-      // console.log(entry);
       if (names_years.indexOf(name_year) > -1) {
-         // console.log("IF");
-         // console.log(name_year);
          var name = entry.name;
          var point = [];
          hurdata = {};
@@ -248,8 +230,6 @@ const buildGeomap = async () => {
          hurdata['Coordinates'] = latlong;
          hurdata['Wind Speed'] = windspeed;
          object[name_year] = hurdata;
-         // console.log(latlong);
-         // assign feature type
          if (name_year === "Andrew_1992") {
             featureType = "Hurricane_Andrew_1992";
          } else if (name_year === "Charley_2004") {
@@ -272,22 +252,12 @@ const buildGeomap = async () => {
             featureType = "Hurricane_Wilma_2005";
          }
 
-         // var hurricane = object.name_year;
-         // var line = hurricane.Coordinates
-
-         // console.log(hurdata.Coordinates);
-
          // extract wind speed parameter for getWidth function
          let windspeedwidth = hurdata['Wind Speed'];
 
-         console.log(getWidth(windspeedwidth));
-
          const newFeature = L.polyline(hurdata.Coordinates, {
             color: getColor(name_year),
-            weight: 4 //getWidth(windspeedwidth)
-            // color: getColor(sig),
-            // fillOpacity: 0.7,
-            // radius: radius
+            weight: 4 
          });
 
          // Add features to the layers according to their types
@@ -301,8 +271,7 @@ const buildGeomap = async () => {
             .addTo(myMap)
 
       } else {
-         // console.log("ELSE");
-
+         
          latlong = []
          windspeed = []
          hurdata = {}
@@ -343,32 +312,21 @@ const buildGeomap = async () => {
             featureType = "Hurricane_Wilma_2005";
          }
 
-         let windspeedwidth = hurdata['Wind Speed'];
-         // console.log(windspeedwidth);
-
+         
          const newFeature = L.polyline(hurdata.Coordinates, {
             color: getColor(name_year),
-            weight: 4 // getWidth(windspeedwidth)
-            // color: getColor(sig),
-            // fillOpacity: 0.7,
-            // radius: radius
+            weight: 4
          });
 
          // Add features to the layers according to their types
          newFeature.addTo(layers[featureType]);
-         console.log(entry.damage_usd);
          newFeature.bindPopup(`<h3>${entry.name}: ${entry.year}</h3><hr>
             <h4>Time: ${entry.max_wind}</h4>
             <h4>Air pressure: ${entry.air_pressure}</h4>`, {
                maxWidth: 560
             }) //
             .addTo(myMap)
-         // 
-         // <h4>Cost: ${entry.damage_usd}</h4>
-
-
-      }
-
+         }
    })
 
    // Create a legend in the bottom right corner for color pallet of EQ significances
@@ -394,7 +352,6 @@ const buildGeomap = async () => {
 buildGeomap();
 
 
-
 // ************************************************************************************************************************************************
 // ************************************************************************************************************************************************
 // *************************************************                                ***************************************************************
@@ -407,16 +364,11 @@ buildGeomap();
 
 const buildStateCost = async () => {
    const data = await (await fetch("/cost_by_state")).json();
-   // console.log(data);
-
-
 
    // here below this line is the code for Amy
    var states = data.map(entry => entry.name)
    var costs = data.map(entry => parseInt(entry.total_damage))
-   // console.log(states)
-   // console.log(costs)
-
+   
    var chartData = [{
       type: 'choropleth',
       locationmode: 'USA-states',
