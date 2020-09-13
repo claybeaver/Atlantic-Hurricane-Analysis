@@ -27,7 +27,7 @@ html {
 }
 #geomap,
 html {
-  height: 600px;
+  height: 650px;
 }
 
 #top10,
@@ -10360,6 +10360,10 @@ body {
 }
 .about-section p {
   margin-bottom: 5rem;
+}
+
+.about-section-scatter {
+  background-color: white;
 }
 
 .projects-section {
