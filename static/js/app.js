@@ -265,7 +265,7 @@ const buildGeomap = async () => {
          // Add features to the layers according to their types
          newFeature.addTo(layers[featureType]);
 
-         newFeature.bindPopup(`<h5>${entry.name}: ${entry.year}</h5><hr>
+         newFeature.bindPopup(`<h5>${entry.name} ${entry.year}</h5><hr>
          <p>Max. Wind: ${hurdata['MaxWind']} MPH </p>
          <p>Air Pressure: ${entry.air_pressure} mb</p>
          <p>Cost: $${entry.damage_usd} Billion</p>`, {
@@ -331,7 +331,7 @@ const buildGeomap = async () => {
 
          // Add features to the layers according to their types
          newFeature.addTo(layers[featureType]);
-         newFeature.bindPopup(`<h3>${entry.name}: ${entry.year}</h3><hr>
+         newFeature.bindPopup(`<h3>${entry.name} ${entry.year}</h3><hr>
             <h4>Wind: ${entry.max_wind}</h4>
             <h4>Air pressure: ${entry.air_pressure}</h4>
             <p>Cost: ${entry.damage_usd}</p>`, {
