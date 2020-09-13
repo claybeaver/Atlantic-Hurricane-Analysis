@@ -337,7 +337,7 @@ const buildGeomap = async () => {
       var div = L.DomUtil.create('div', 'legend');
       var labels = ["Andrew, 1992", "Charley, 2004", "Harvey, 2017", "Ike, 2008", "Irma, 2017", "Ivan, 2004", "Katrina, 2005", "Rita, 2005", "Sandy, 2012", "Wilma, 2005"];
       var grades = ["Andrew_1992", "Charley_2004", "Harvey_2017", "Ike_2008", "Irma_2017", "Ivan_2004", "Katrina_2005", "Rita_2005", "Sandy_2012", "Wilma_2005"];
-      div.innerHTML = '<div class="legend-title">EQ Significance</br><hr></div>';
+      div.innerHTML = '<div class="legend-title">Hurricanes</br><hr></div>';
       for (var i = 0; i < grades.length; i++) {
          div.innerHTML += "<i style='background:" + getColor(grades[i]) +
             "'>&nbsp;&nbsp;</i>" + labels[i] + '<br/>';

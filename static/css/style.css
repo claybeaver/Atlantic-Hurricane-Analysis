@@ -36,12 +36,12 @@ html {
 }
 
 /* set map, body, and html to 100% of the screen size */
-#cost,
+/* #cost,
 html {
   padding-top:40px;
   height: 600px;
   background-color: white;
-}
+} */
 
 .header-section {
   text-align: center;
@@ -65,8 +65,8 @@ html {
 }
 
 .legend i {
-  width: 15px;
-  height: 12px;
+  width: 20px;
+  height: 4px;
   float: left;
   margin: 0 8px 0 0;
 }
