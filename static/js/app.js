@@ -76,7 +76,7 @@ const buildScatterPlot = async () => {
             yAxes: [{
                scaleLabel: {
                   display: true,
-                  labelString: 'Maximum Wind Speed (MPH)'
+                  labelString: 'Maximum WindSpeed (MPH)'
                }
             }]
          },
@@ -228,7 +228,9 @@ const buildGeomap = async () => {
          latlong.push(point);
          windspeed.push(parseInt(entry.max_wind))
          hurdata['Coordinates'] = latlong;
-         hurdata['Wind Speed'] = windspeed;
+         hurdata['WindSpeed'] = windspeed;
+         hurdata['MaxWind'] = d3.max(windspeed)
+
          object[name_year] = hurdata;
          if (name_year === "Andrew_1992") {
             featureType = "Hurricane_Andrew_1992";
@@ -252,8 +254,8 @@ const buildGeomap = async () => {
             featureType = "Hurricane_Wilma_2005";
          }
 
-         // extract wind speed parameter for getWidth function
-         let windspeedwidth = hurdata['Wind Speed'];
+         // extract WindSpeed parameter for getWidth function
+
 
          const newFeature = L.polyline(hurdata.Coordinates, {
             color: getColor(name_year),
@@ -264,12 +266,13 @@ const buildGeomap = async () => {
          newFeature.addTo(layers[featureType]);
 
          newFeature.bindPopup(`<h5>${entry.name}: ${entry.year}</h5><hr>
-         <p>Max. Wind: ${entry.max_wind}</p>
-         <p>Air Pressure: ${entry.air_pressure}</p>
-         <p>Cost: ${entry.damage_usd}</p>`, {
+         <p>Max. Wind: ${hurdata['MaxWind']} MPH </p>
+         <p>Air Pressure: ${entry.air_pressure} mb</p>
+         <p>Cost: $${entry.damage_usd} Billion</p>`, {
                maxWidth: 560
             }) //
             .addTo(myMap)
+
 
       } else {
          
@@ -286,9 +289,15 @@ const buildGeomap = async () => {
          latlong.push(point);
          windspeed.push(parseInt(entry.max_wind))
          hurdata['Coordinates'] = latlong;
-         hurdata['Wind Speed'] = windspeed;
+         hurdata['WindSpeed'] = windspeed;
+         hurdata['MaxWind'] = d3.max(windspeed)
          object[name_year] = hurdata;
+         
+         
 
+   
+         
+         
 
          // assign feature type
          if (name_year === "Andrew_1992") {
@@ -319,17 +328,24 @@ const buildGeomap = async () => {
             weight: 4
          });
 
+
          // Add features to the layers according to their types
          newFeature.addTo(layers[featureType]);
          newFeature.bindPopup(`<h3>${entry.name}: ${entry.year}</h3><hr>
-            <h4>Time: ${entry.max_wind}</h4>
+            <h4>Wind: ${entry.max_wind}</h4>
             <h4>Air pressure: ${entry.air_pressure}</h4>
             <p>Cost: ${entry.damage_usd}</p>`, {
                maxWidth: 560
             }) //
             .addTo(myMap)
+
+
          }
+         
+
    })
+
+   console.log(object) 
 
    // Create a legend in the bottom right corner for color pallet of EQ significances
    var legend = L.control({
