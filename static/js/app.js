@@ -264,8 +264,9 @@ const buildGeomap = async () => {
          newFeature.addTo(layers[featureType]);
 
          newFeature.bindPopup(`<h5>${entry.name}: ${entry.year}</h5><hr>
-         <p>Time: ${entry.max_wind}</p>
-         <p>Magnitude: ${entry.air_pressure}</p>`, {
+         <p>Max. Wind: ${entry.max_wind}</p>
+         <p>Air Pressure: ${entry.air_pressure}</p>
+         <p>Cost: ${entry.damage_usd}</p>`, {
                maxWidth: 560
             }) //
             .addTo(myMap)
@@ -322,7 +323,8 @@ const buildGeomap = async () => {
          newFeature.addTo(layers[featureType]);
          newFeature.bindPopup(`<h3>${entry.name}: ${entry.year}</h3><hr>
             <h4>Time: ${entry.max_wind}</h4>
-            <h4>Air pressure: ${entry.air_pressure}</h4>`, {
+            <h4>Air pressure: ${entry.air_pressure}</h4>
+            <p>Cost: ${entry.damage_usd}</p>`, {
                maxWidth: 560
             }) //
             .addTo(myMap)
