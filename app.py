@@ -24,26 +24,17 @@ app = Flask(__name__)
 #################################################
 # Database Setup
 #################################################
-#### test irina
 engine = create_engine("postgres://ksbyesziginjim:604e43369bb88e70d12bfdff3c853e100e75e5049e4633240a1a6a3f4c01931a@ec2-54-172-173-58.compute-1.amazonaws.com:5432/d5r20gklffimtp")
-#### test irina
-# con = psycopg2.connect(database="hurricanes_db", user="postgres", password=password, host="127.0.0.1", port="5432")
-# cursor = con.cursor()
-# Connect to the local database
-# connection_string = f'{username}:{password}@localhost:5432/hurricanes_db'
-# engine = create_engine(f'postgresql://{connection_string}')
-
-##### end test irina
 
 from flask_sqlalchemy import SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', "postgresql://localhost:5000/hurricanes_db")
 
 # Remove tracking modifications
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
-Classes = create_classes(db)
+# Classes = create_classes(db)
 
 @app.route("/costwind")
 def costwind():
@@ -58,8 +49,8 @@ def costwind():
         d['max_wind'] = row[3]
         objects_list.append(d)
 
-    j = json.dumps(objects_list)
-    return j
+    costwind_js = json.dumps(objects_list)
+    return costwind_js
     # return render_template("costwind.html", data=objects_list)
 
 # create route that renders index.html template
@@ -79,8 +70,8 @@ def jsondata():
         d['time'] = row[7]
         objects_list.append(d)
 
-    j = json.dumps(objects_list)
-    return j
+    jsondata_js = json.dumps(objects_list)
+    return jsondata_js
 
 # create route that renders index.html template
 @app.route("/maxwinds")
@@ -93,10 +84,8 @@ def maxwinds():
         d['max_wind'] = row[1]
         d['name_year'] = row[2]
         objects_list.append(d)
-    j = json.dumps(objects_list)
-    objects_file = 'maxwinds.js'
-    f = open(objects_file,'w')
-    return j
+    maxwinds_js = json.dumps(objects_list)
+    return maxwinds_js
 
 # create route that renders index.html template
 @app.route("/cost_by_state")
@@ -108,8 +97,8 @@ def cost_by_state():
         d['name'] = row[0]
         d['total_damage'] = row[1]
         objects_list.append(d)
-    j = json.dumps(objects_list)
-    return j
+    costbystate_js = json.dumps(objects_list)
+    return costbystate_js
 
 # create route that renders index.html template
 @app.route("/")
@@ -118,27 +107,25 @@ def main_page():
     # print(cost)
     return render_template("index.html", costbystate=cost)
   
-# Query the database and send the jsonified results
-@app.route("/geomap", methods=["GET", "POST"])
-def geomap():
-    rows = engine.execute("select name, hurricane_id, year, latitude_decimal, longitude_decimal, max_wind, air_pressure, time from master")
-    objects_list = []
-    for row in rows:
-        d = collections.OrderedDict()
-        d['name'] = row[0]
-        d['hurricane_id'] = row[1]
-        d['year'] = row[2]
-        d['latitude'] = str(row[3])
-        d['longitude'] = str(row[4])
-        d['max_wind'] = row[5]
-        d['air_pressure'] = row[6]
-        d['time'] = row[7]
-        objects_list.append(d)
+# # Query the database and send the jsonified results
+# @app.route("/geomap", methods=["GET", "POST"])
+# def geomap():
+#     rows = engine.execute("select name, hurricane_id, year, latitude_decimal, longitude_decimal, max_wind, air_pressure, time from master")
+#     objects_list = []
+#     for row in rows:
+#         d = collections.OrderedDict()
+#         d['name'] = row[0]
+#         d['hurricane_id'] = row[1]
+#         d['year'] = row[2]
+#         d['latitude'] = str(row[3])
+#         d['longitude'] = str(row[4])
+#         d['max_wind'] = row[5]
+#         d['air_pressure'] = row[6]
+#         d['time'] = row[7]
+#         objects_list.append(d)
 
-    j = json.dumps(objects_list)
-    objects_file = 'geomap.js'
-    f = open(objects_file,'w')
-    return render_template("geomap.html")
+#     geomap_js = json.dumps(objects_list)
+#     return render_template("geomap.html")
 
 # create route that renders index.html template
 @app.route("/data", methods=["GET", "POST"])
@@ -169,8 +156,8 @@ def top10():
         d['date'] = row[13]
         objects_list.append(d)
 
-    j = json.dumps(objects_list)
-    return j
+    top10_js = json.dumps(objects_list)
+    return top10_js
 
 
 if __name__ == "__main__":
