@@ -11,6 +11,8 @@ Project 2 - Group 5
 
 ![Images/deploy05.png](Images/06_readme_wiki_cost_table.png)
 
+![Images/deploy05.png](Images/07_readme_grayscale.png)
+
 
 ![Images/deploy05.png](Images/00_readme_costmap.png)
 
