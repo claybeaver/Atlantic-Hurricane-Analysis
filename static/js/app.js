@@ -13,7 +13,6 @@ const buildScatterPlot = async () => {
 
    var hurricanes = datas.map(hurricane => hurricane.name_year)
 
-
    let names_years = ['Andrew_1992'];
    let name_year;
    let hurdata = {};
@@ -27,7 +26,7 @@ const buildScatterPlot = async () => {
    datas.forEach(entry => {
       name_year = entry.name_year
       if (names_years.indexOf(name_year) > -1) {
-         cost = entry.damage_usd
+         cost = entry.damage_usdfmaxwinds
          windSpeeds.push(parseInt(entry.max_wind))
          hurdata['y'] = d3.max(windSpeeds);
          hurdata['x'] = cost;
@@ -41,8 +40,6 @@ const buildScatterPlot = async () => {
          new_name_year = `${entry.name}_${entry.year}`;
          names_years.push(new_name_year);
       }
-
-
 
    })
    hurData2.push(hurdata)
@@ -223,8 +220,8 @@ const buildGeomap = async () => {
          var name = entry.name;
          var point = [];
          hurdata = {};
-         point.push(parseInt(entry.latitude));
-         point.push(parseInt(entry.longitude));
+         point.push(parseFloat(entry.latitude));
+         point.push(parseFloat(entry.longitude));
          latlong.push(point);
          windspeed.push(parseInt(entry.max_wind))
          hurdata['Coordinates'] = latlong;
@@ -284,8 +281,8 @@ const buildGeomap = async () => {
 
          var point = [];
          hurdata = {};
-         point.push(parseInt(entry.latitude));
-         point.push(parseInt(entry.longitude));
+         point.push(parseFloat(entry.latitude));
+         point.push(parseFloat(entry.longitude));
          latlong.push(point);
          windspeed.push(parseInt(entry.max_wind))
          hurdata['Coordinates'] = latlong;
@@ -293,9 +290,6 @@ const buildGeomap = async () => {
          hurdata['MaxWind'] = d3.max(windspeed)
          object[name_year] = hurdata;
          
-         
-
-   
          
          
 
@@ -321,13 +315,11 @@ const buildGeomap = async () => {
          } else {
             featureType = "Hurricane_Wilma_2005";
          }
-
-         
+  
          const newFeature = L.polyline(hurdata.Coordinates, {
             color: getColor(name_year),
             weight: 4
          });
-
 
          // Add features to the layers according to their types
          newFeature.addTo(layers[featureType]);
@@ -338,16 +330,10 @@ const buildGeomap = async () => {
                maxWidth: 560
             }) //
             .addTo(myMap)
-
-
          }
-         
-
    })
 
-   console.log(object) 
-
-   // Create a legend in the bottom right corner for color pallet of EQ significances
+   // Create a legend in the bottom left corner for color pallet of EQ significances
    var legend = L.control({
       position: "bottomleft"
    });
