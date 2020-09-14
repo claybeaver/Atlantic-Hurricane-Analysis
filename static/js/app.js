@@ -26,7 +26,7 @@ const buildScatterPlot = async () => {
    datas.forEach(entry => {
       name_year = entry.name_year
       if (names_years.indexOf(name_year) > -1) {
-         cost = entry.damage_usdfmaxwinds
+         cost = entry.damage_usd
          windSpeeds.push(parseInt(entry.max_wind))
          hurdata['y'] = d3.max(windSpeeds);
          hurdata['x'] = cost;
