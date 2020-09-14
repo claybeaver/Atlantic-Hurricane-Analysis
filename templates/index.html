@@ -1,167 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Atlantic Hurricanes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- Leaflet CSS -->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"> -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-</head>
-
-<body id="page-top">
-    <!-- Navigation--> 
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">  <!--  -->
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">Rice University Data Camp</a>
-            <a class="navbar-brand js-scroll-trigger"  href="#page-top">Rice Data Camp | Project II</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <!-- Menu -->
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Atlantic Hurricanes</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    
+        <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+        
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">Rice University Data Camp | Project II</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#aboutseccost">Cost</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#aboutsecscatter">Scatter</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#aboutsecgeomap">Geomap</a></li>
-                </ul>
-            <!-- </div> -->
-        </div>
-    </nav>
- 
-    <!-- Masthead-->
-    <header class="masthead">
-        <div class="container d-flex h-100 align-items-center">
-            <div class="mx-auto text-center">
-                <h1 class="mx-auto my-0 text-uppercase">Atlantic</h1>
-                <h1 class="mx-auto my-0 text-uppercase">Hurricanes</h1>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#geomap">Geomap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container d-flex h-100 align-items-center">
+                <div class="mx-auto text-center">
+                    <h1 class="mx-auto my-0 text-uppercase">Atlantic</h1>
+                    <h1 class="mx-auto my-0 text-uppercase">Hurricanes</h1>
                 <h2 class="text-white-50 mx-auto mt-2 mb-5">Project II Group 5</h2>
                 <h2 class="text-white-50 mx-auto mt-2 mb-5">Amy, Clay, Irina & Neil</h2>
-                <!-- <a class="btn btn-primary js-scroll-trigger" href="#about">Get Started</a> -->
-            </div>
-        </div>
-    </header>
- 
-        <!-- <div>
-            <div>
-                <h1 class="header-section">Atlantic Hurricanes</h1>
-                <p style="text-align:center; font-weight: bold; padding-bottom: 40px;">Project 2 / Group 5 - Amy Clay Irina Neil</p>
-            </div>
-        </div> -->
-    <!-- About-->
-    <section class="about-section text-center" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h2 class="text-white mb-4">Introduction to the project</h2>
-                    <h3 class="text-white-50">
-                        Over the last several years costly disasters have been particularly destructive. 
-                        The historic 2019 U.S. inland flooding across many Central states follows the historic 2018 and 2017 Atlantic hurricanes, which set new damage cost records.</h3>
-                    <h3 class="text-white-50">
-                        These disasters have impacted dozens of Eastern, Central, and Western states, in addition to Caribbean territories (i.e., Puerto Rico and the U.S. Virgin Islands).</h3>
-                    <h3 class="text-white-50">
-                        Please join us in this review the historical Atlantic hurricanes data.
-                    </h3><br>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="bottomspace" style="height:250px; background-color: rgba(0, 0, 0, 0.8);"></section>
-
-    <section id="aboutseccost">
-    </section>
-
-    <h4 style="text-align:center; padding-top:60px;padding-bottom:60px;background-color: coral; color:white;">Damages overview - US by states (1980 - 2019) </h4>
-    
-    <div class="container">
-        <div class = "chloropleth">
-            <div class = "row">
-                <div class = "col-md-4"><br><br>
-                    <p>To the year 2019 the costliest damages were recorded from for Texas state.</p>
-                    <p>The latest statistics from NOAA show total damages from hurricanes and floods in Texas was $250 billions. Over $210 billions for Florida. And almost $180 billion for Louisiana.</p>
-                    <p>Mississippi, North Carolina and New York states encountered on average about 50kUSD in normalized losses.</p>
-                    <p>Other states below 20kUSD.</p>
-                </div>
-                <div class = "col-md-8">
-                    <div id="costmap"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+        </header>
+        <!-- About-->
         
-    <section id="aboutsecscatter">
-    </section>
-
-    <h4 style="text-align: center; padding-top:60px;padding-bottom:60px;background-color: #28DF99; color:white;">Hurricane Wind Speeds vs. Cost</h4>
-    <div class="bottomspace"></div>
-    <div class="container">
-        <div class="scatter-plot">
-            <div class = "row">
-                <div class = "col-md-6">
-                    <canvas id="myChart" width="100" height="100"></canvas>
+        <section class="about-section text-center" id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2 class="text-white mb-4">Introduction to the project</h2>
+                        <h3 class="text-white-50">
+                            Over the last several years costly disasters have been particularly destructive. 
+                            The historic 2019 U.S. inland flooding across many Central states follows the historic 2018 and 2017 Atlantic hurricanes, which set new damage cost records.</h3>
+                        <h3 class="text-white-50">
+                            These disasters have impacted dozens of Eastern, Central, and Western states, in addition to Caribbean territories (i.e., Puerto Rico and the U.S. Virgin Islands).</h3>
+                        <h3 class="text-white-50">
+                            Please join us in this review the historical Atlantic hurricanes data.
+                        </h3><br>
+                    </div>
                 </div>
-                <div class = "col-md-6"><br><br>
-                    <p>Hurricane Katrina was an exceptionally large Category 5 hurricane as it approached the Gulf Coast. Category 5 storms have sustained winds in excess of 156 mph.</p>
-                    <p>Katrina’s hurricane-force winds of 160 mph extended 90 miles from the center, and tropical-storm-force winds stretched 200 miles in each direction from its center. Hurricanes are typically no more than 300 miles wide. </p>
-                    <p>Right before landfall, Hurricane Katrina weakened to a Category 3 hurricane with winds as strong as 125 mph.</p>
+            </div>
+        </section>
+        <section class="bottomspace" style="height:250px; background-color: rgba(0, 0, 0, 0.8);"></section>
+    
+        <section id="aboutseccost">
+        </section>
+    
+        <h4 style="text-align:center; padding-top:60px;padding-bottom:60px;background-color: coral; color:white;">Damages overview - US by states (1980 - 2019) </h4>
+        
+        <div class="container">
+            <div class = "chloropleth">
+                <div class = "row">
+                    <div class = "col-md-4"><br><br>
+                        <p>To the year 2019 the costliest damages were recorded from for Texas state.</p>
+                        <p>The latest statistics from NOAA show total damages from hurricanes and floods in Texas was $250 billions. Over $210 billions for Florida. And almost $180 billion for Louisiana.</p>
+                        <p>Mississippi, North Carolina and New York states encountered on average about 50kUSD in normalized losses.</p>
+                        <p>Other states below 20kUSD.</p>
+                    </div>
+                    <div class = "col-md-8">
+                        <div id="costmap"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <section class="bottomspace"></section>
-
-    <div style="text-align: center; font-weight: bold; font-size:24px; padding-top:60px;padding-bottom:60px;background-color: #E79CC2; color:white; size:20px;" id="aboutsecgeomap">Top 10 Costliest Hurricanes Paths</div>
+            
+        <section id="aboutsecscatter">
+        </section>
     
-    <!-- <div> -->
-        <!-- <div class = "col-md-12"> -->
-            <div id="geomap"></div>
+        <h4 style="text-align: center; padding-top:60px;padding-bottom:60px;background-color: #28DF99; color:white;">Hurricane Wind Speeds vs. Cost</h4>
+        <div class="bottomspace"></div>
+        <div class="container">
+            <div class="scatter-plot">
+                <div class = "row">
+                    <div class = "col-md-6">
+                        <canvas id="myChart" width="100" height="100"></canvas>
+                    </div>
+                    <div class = "col-md-6"><br><br>
+                        <p>Hurricane Katrina was an exceptionally large Category 5 hurricane as it approached the Gulf Coast. Category 5 storms have sustained winds in excess of 156 mph.</p>
+                        <p>Katrina’s hurricane-force winds of 160 mph extended 90 miles from the center, and tropical-storm-force winds stretched 200 miles in each direction from its center. Hurricanes are typically no more than 300 miles wide. </p>
+                        <p>Right before landfall, Hurricane Katrina weakened to a Category 3 hurricane with winds as strong as 125 mph.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <section class="bottomspace"></section>
+    
+        <div style="text-align: center; font-weight: bold; font-size:24px; padding-top:60px;padding-bottom:60px;background-color: #E79CC2; color:white; size:20px;" >Top 10 Costliest Hurricanes Paths</div>
+        
+        <!-- <div> -->
+            <!-- <div class = "col-md-12"> -->
+                <div id="geomap"></div>
+            <!-- </div> -->
         <!-- </div> -->
-    <!-- </div> -->
-    
-    <h4 style="text-align:center; padding-top:60px;padding-bottom:60px;background-color: #4e89ae; color:white;"></h4>
-    
-    <!-- <div class="bottomspace"></div> -->
+        
+        <h4 style="text-align:center; padding-top:60px;padding-bottom:60px;background-color: #4e89ae; color:white;"></h4>
+        
+        
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script> -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <!-- CSS only -->
+        
+        <!-- JS, Popper.js, and jQuery -->
+        <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+        
+        <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+        
+        
 
-    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Atlantic Hurricanes</a>
-        <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" target=“_blank” href="/data">Master data</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" target=“_blank” href="https://github.com/IrinaUX/project2_heroku">GitHub</a>
-        </li>
-        </ul>
-    </nav>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
-    <!-- CSS only -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
-    <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" /> -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-</body>
-
+        
+        <!-- Navigation bar at the bottom  -->
+        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Atlantic Hurricanes</a>
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target=“_blank” href="/data">Master data</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target=“_blank” href="https://github.com/IrinaUX/project2_heroku">GitHub</a>
+            </li>
+            </ul>
+        </nav>
+    </body>
 </html>

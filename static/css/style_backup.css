@@ -1,3 +1,16 @@
+/*!
+ * Bootswatch v4.0.0
+ * Homepage: https://bootswatch.com
+ * Copyright 2012-2018 Thomas Park
+ * Licensed under MIT
+ * Based on Bootstrap
+*//*!
+ * Bootstrap v4.0.0 (https://getbootstrap.com)
+ * Copyright 2011-2018 The Bootstrap Authors
+ * Copyright 2011-2018 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ 
+ /* remove default margin and padding from body */
 body {
     padding: 0;
     margin: 0;
@@ -69,7 +82,6 @@ html {
   padding-top: 30px;
   padding-bottom: 26px;
 }
-
 @charset "UTF-8";
 /*!
 * Start Bootstrap - Grayscale v6.0.2 (https://startbootstrap.com/themes/grayscale)
@@ -542,7 +554,7 @@ mark,
   color: #6c757d;
 }
 .blockquote-footer::before {
-  content: "— ";
+  content: "— ";
 }
 
 .img-fluid {
