@@ -12,6 +12,11 @@ html {
 #costmap {
   height: 600px;
 }
+
+#plot {
+  height: 600px;
+}
+
 #geomap,
 html {
   height: 800px;

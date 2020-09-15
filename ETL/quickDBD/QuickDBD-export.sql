@@ -93,3 +93,11 @@ CREATE TABLE "top10" (
 	"name_year" VARCHAR(255)   NOT NULL,
 	"lat_lon" VARCHAR(20) NOT NULL
 );
+
+CREATE TABLE "fatver2" (
+    "hurricane_id" INT   NOT NULL,
+    "name" VARCHAR(255)   NOT NULL,
+    "deaths" INT   NOT NULL,
+    "year" INT   NOT NULL
+);
+

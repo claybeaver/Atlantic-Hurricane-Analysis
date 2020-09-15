@@ -7,6 +7,7 @@
 // ************************************************************************************************************************************************
 
 
+
 const buildScatterPlot = async () => {
    // here below this line is the code for Neil
    const datas = await (await fetch("/top10")).json();
@@ -17,7 +18,8 @@ const buildScatterPlot = async () => {
    let name_year;
    let hurdata = {};
    let cost = 0;
-   let windSpeeds = []
+   let windSpeeds = [];
+   let fatalities = [];
    let hurData2 = []
    var colors = ['rgba(0, 0, 0,.5)', 'rgba(75, 93, 156,.5)', 'rgba(255, 0, 0,.5)', 'rgba(0, 161, 0,.5)', 'rgba(0, 0, 255,.5)',
       'rgb(0, 165, 255,.5)', 'rgba(0, 255, 0,.5)', 'rgba(238, 130, 238,.5)', 'rgba(255, 165, 0,.5)', 'rgba(102, 102, 102,.5)'
@@ -27,8 +29,10 @@ const buildScatterPlot = async () => {
       name_year = entry.name_year
       if (names_years.indexOf(name_year) > -1) {
          cost = entry.damage_usd
-         windSpeeds.push(parseInt(entry.max_wind))
+         windSpeeds.push(parseInt(entry.max_wind));
+         fatalities.push(entry.fatalities);
          hurdata['y'] = d3.max(windSpeeds);
+         hurdata['f'] = d3.max(fatalities);
          hurdata['x'] = cost;
          hurdata['r'] = cost / 2;
 
@@ -403,7 +407,7 @@ const buildStateCost = async () => {
 
 
    var layout = {
-      title: 'Cumulative Normalized Hurricane Damages',
+      title: 'Cumulative Hurricane Damages',
       geo: {
          scope: 'usa',
          showlakes: true,
@@ -418,3 +422,59 @@ const buildStateCost = async () => {
 
 
 buildStateCost();
+
+// ************************************************************************************************************************************************
+// ************************************************************************************************************************************************
+// *************************************************                                ***************************************************************
+// *************************************************          fatalities            ***************************************************************
+// *************************************************                                ***************************************************************
+// ************************************************************************************************************************************************
+// ************************************************************************************************************************************************
+
+const buildFatalPlot = async () => {
+   const data = await (await fetch("/fatver2")).json();
+
+   var names = data.map(entry => entry.name);
+   var years = data.map(entry => entry.year);
+   var name_years = data.map(entry => `${entry.name}_${entry.year}`);
+   var deaths = data.map(entry => entry.deaths);
+   
+     const title = ` Hurricanes with largest fatalities`;
+     const trace = {
+       x: name_years,
+       y: deaths,
+       type: 'bar',
+      //  color: red, 
+      //  orientation: 'h',
+       title: title,
+       text: name_years,
+       marker: {
+         color: 'rgb(15,52,96)'
+         }
+
+     };
+     var datatrace = [trace];
+     var layout = {
+       title: {
+         text: title,
+         font: {
+           size: 18
+         },
+       }, 
+       font: {
+         size: 14,
+       },
+       xaxis: { title: "Hurricanes" },
+       yaxis: {title: "Fatalities"},
+       width: 400,
+       margin: {
+         l: 100,
+         r: 40,
+         b: 100,
+         t: 100,
+         pad: 10}
+     };
+     Plotly.newPlot("plot", datatrace, layout);
+ };
+
+ buildFatalPlot();

@@ -6,6 +6,7 @@ select * from master;
 select * from maxwinds;
 select * from cost_wind;
 select * from top10;
+select * from fatver2;
 
 drop table cost;
 drop table cost_state;

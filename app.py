@@ -74,6 +74,22 @@ def top10():
     top10_js = json.dumps(top10_list)
     return top10_js
 
+# create route for fatalities data
+@app.route("/fatver2")
+def fatver2():
+    rows = engine.execute("select hurricane_id, name, deaths, year from fatver2")
+    fatalities_list = []
+    for row in rows:
+        fat = collections.OrderedDict()
+        fat['hurricane_id'] = row[0]
+        fat['name'] = row[1]
+        fat['deaths'] = row[2]
+        fat['year'] = row[3]
+        fatalities_list.append(fat)
+    fat_js = json.dumps(fatalities_list)
+    return fat_js
+
+
 
 if __name__ == "__main__":
     app.run(threaded=True)
