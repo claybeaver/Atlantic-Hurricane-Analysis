@@ -447,7 +447,7 @@ const buildFatalPlot = async () => {
       //  color: red, 
       //  orientation: 'h',
        title: title,
-       text: name_years,
+      //  text: name_years,
        marker: {
          color: 'rgb(15,52,96)'
          }
@@ -465,7 +465,7 @@ const buildFatalPlot = async () => {
          size: 14,
        },
        xaxis: { title: "Hurricanes" },
-       yaxis: {title: "Fatalities"},
+       yaxis: { title: "Fatalities"},
        width: 400,
        margin: {
          l: 100,
